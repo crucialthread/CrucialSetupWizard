@@ -1,0 +1,4 @@
+[submodule "lib/TryCatch"]
+	path = lib/TryCatch
+	url = https://github.com/crucialthread/AutoItTryCatch
+	branch = dist

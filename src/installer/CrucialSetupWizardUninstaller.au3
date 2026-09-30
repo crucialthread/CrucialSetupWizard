@@ -227,7 +227,7 @@ Func __RunUninstall($idStatusLabel, $idProgress)
 		_ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Removing Crucial Setup Wizard files...")
         If Not $bSkip Then
 			__RemoveInstalledFile($g_sIncludePath & "\CrucialSetupWizard.au3")
-			__RemoveInstalledFile($g_sIncludePath & "\CrucialTestableInclude.au3")
+			__RemoveInstalledFile($g_sIncludePath & "\CrucialWizTstblInclude.au3")
 		EndIf
 		$iStep += 1
 

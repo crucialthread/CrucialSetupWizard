@@ -29,7 +29,7 @@
 ; Language ......: English
 ; Author ........: Crucial Thread
 ; Description ...: Installation wizard for Crucial Setup Wizard.
-;                  Copies CrucialSetupWizard.au3, and CrucialTestableInclude.au3 files to the _
+;                  Copies CrucialSetupWizard.au3, and CrucialWizTstblInclude.au3 files to the _
 ;                  AutoIt Vendor include folder and registers the path in the AutoIt include _
 ;                  registry so the library is available from any project via:
 ;                  #include <CrucialSetupWizard.au3>.
@@ -195,8 +195,8 @@ Func __FileInstall($sSource, $sDest, $iFlag)
         Case $sSource = "..\core\CrucialSetupWizard.au3"
             $iFileInstall = FileInstall("..\core\CrucialSetupWizard.au3", $sDest, $iFlag)
 
-        Case $sSource = "..\core\CrucialTestableInclude.au3"
-            $iFileInstall = FileInstall("..\core\CrucialTestableInclude.au3", $sDest, $iFlag)
+        Case $sSource = "..\core\CrucialWizTstblInclude.au3"
+            $iFileInstall = FileInstall("..\core\CrucialWizTstblInclude.au3", $sDest, $iFlag)
 
         Case $sSource = "..\..\chm\CrucialSetupWizard.chm"
             $iFileInstall = FileInstall("..\..\chm\CrucialSetupWizard.chm", $sDest, $iFlag)
@@ -271,7 +271,7 @@ Func __RunInstall($idStatusLabel, $idProgress)
 
         _ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Copying Crucial Setup Wizard files...")
         If Not $bSkip Then
-			__InstallFile("..\core\CrucialTestableInclude.au3", $g_sIncludePath & "\CrucialTestableInclude.au3", $FC_OVERWRITE)
+			__InstallFile("..\core\CrucialWizTstblInclude.au3", $g_sIncludePath & "\CrucialWizTstblInclude.au3", $FC_OVERWRITE)
 			__InstallFile("..\core\CrucialSetupWizard.au3", $g_sIncludePath & "\CrucialSetupWizard.au3", $FC_OVERWRITE)
 		EndIf
         $iStep += 1
@@ -403,8 +403,7 @@ Func __Installation()
 
 	Local $sFinishMsg = "Crucial Setup Wizard has been successfully installed." & @CRLF & @CRLF & _
 						"You can now use it from any AutoIt project:" & @CRLF & _
-						" #include <CrucialSetupWizard.au3>" ;& @CRLF & @CRLF & _
-						;"Thank you for installing Crucial Setup Wizard."
+						" #include <CrucialSetupWizard.au3>"
 
 	Local $sFinishSubHeading = "Installation complete"
 	Local $iFinishPageId = _AddFinishPage($mWizard, $mCfg, $idLblProgress, $idProgressbar, $sFinishMsg, $sDocFile, $sFinishSubHeading)

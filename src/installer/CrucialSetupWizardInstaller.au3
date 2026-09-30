@@ -348,7 +348,7 @@ EndFunc
 ; Returns    : Wizard map ($mWizard) ready to be passed to _InitWizard()
 ; ===============================================================================================================================
 Func __Installation()
-	Local $mCfg = _NewInstallerCfg()
+	Local $mCfg = _NewInstallerCfg(_NewWndCfg(580, 370))
 	Local $sInstallerTitle = "Crucial Setup Wizard"
 	Local $sHeaderTitle = "Crucial Setup Wizard"
 	Local $mWizard = _NewWizard($mCfg, $sInstallerTitle, $sHeaderTitle)
@@ -402,9 +402,9 @@ Func __Installation()
 	Local $sDocFile = $g_sInstallPath & "\CrucialSetupWizard.chm"
 
 	Local $sFinishMsg = "Crucial Setup Wizard has been successfully installed." & @CRLF & @CRLF & _
-						"You can now use it from any AutoIt project:" & @CRLF & @CRLF & _
-						" #include <CrucialSetupWizard.au3>" & @CRLF & @CRLF & _
-						"Thank you for installing Crucial Setup Wizard."
+						"You can now use it from any AutoIt project:" & @CRLF & _
+						" #include <CrucialSetupWizard.au3>" ;& @CRLF & @CRLF & _
+						;"Thank you for installing Crucial Setup Wizard."
 
 	Local $sFinishSubHeading = "Installation complete"
 	Local $iFinishPageId = _AddFinishPage($mWizard, $mCfg, $idLblProgress, $idProgressbar, $sFinishMsg, $sDocFile, $sFinishSubHeading)

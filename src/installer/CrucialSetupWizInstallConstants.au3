@@ -1,12 +1,12 @@
 #include-once
 
 ; #INDEX# =======================================================================================================================
-; Title .........: AutoIt Test Framework - TestFmkInstallerConstants.au3
+; Title .........: Crucial Setup Wizard - TestFmkInstallerConstants.au3
 ; Version .......: 1.0.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread
-; Description ...: AutoIt Test Framework Installer/Uninstaller shared constants and globals .
+; Description ...: Crucial Setup Wizard Installer/Uninstaller shared constants and globals .
 ; ===============================================================================================================================
 
 ; ===============================================================================================================================
@@ -14,7 +14,7 @@
 ; ===============================================================================================================================
 
 Global Const $WIZ_INSTALLER_VERSION = "1.0.0"
-Global Const $WIZ_UNINSTALLER_TITLE = "AutoIt Test Framework Uninstall"
+Global Const $WIZ_UNINSTALLER_TITLE = "Crucial Setup Wizard Uninstall"
 
 Global Const $REG_UNINSTALL_KEY  = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\CrucialSetupWizard"
 Global Const $REG_INSTALL_KEY    = "HKEY_LOCAL_MACHINE\SOFTWARE\CrucialSetupWizard"

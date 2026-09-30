@@ -5,7 +5,7 @@
 #include "..\..\src\core\CrucialSetupWizard.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: CrucialSetupWizardPageCtrlTests.au3
+; Title .........: CrucialWizPageCtrlTests.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -14,7 +14,7 @@
 ;                  Tests page control array creation, control name normalization,
 ;                  control registration, retrieval, and array replacement.
 ; ===============================================================================================================================
-Local $sScriptName = "CrucialSetupWizardPageCtrlTests.au3"
+Local $sScriptName = "CrucialWizPageCtrlTests.au3"
 
 ; ===============================================================================================================================
 ; Tests - __CreatePageCtrls
@@ -236,34 +236,34 @@ EndFunc
 ; ===============================================================================================================================
 ; Run tests
 ; ===============================================================================================================================
-Func __RunCrucialSetupWizardPageCtrlTest_CreatePageCtrls(ByRef $bAllPassed)
+Func __RunCrucialWizPageCtrlTest_CreatePageCtrls(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestCreatePageCtrls_DefaultSize,         $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCreatePageCtrls_CustomSize,          $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageCtrlTest_ArrayInMapReplace(ByRef $bAllPassed)
+Func __RunCrucialWizPageCtrlTest_ArrayInMapReplace(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestArrayInMapReplace_ReplacesValue,     $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestArrayInMapReplace_InvalidIndex,      $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestArrayInMapReplace_InvalidArray,      $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageCtrlTest_PageCtrlName(ByRef $bAllPassed)
+Func __RunCrucialWizPageCtrlTest_PageCtrlName(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestPageCtrlName_AddsPrefix,             $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestPageCtrlName_AddsSuffix,             $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestPageCtrlName_AlreadyNormalized,      $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageCtrlTest_GetPageCtrlIndex(ByRef $bAllPassed)
+Func __RunCrucialWizPageCtrlTest_GetPageCtrlIndex(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestGetPageCtrlIndex_Found,              $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestGetPageCtrlIndex_NotFound,           $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestGetPageCtrlIndex_InvalidPage,        $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageCtrlTest_SetPageCtrl(ByRef $bAllPassed)
+Func __RunCrucialWizPageCtrlTest_SetPageCtrl(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestSetPageCtrl_AddsNewControl,          $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetPageCtrl_UpdatesExistingControl,  $bAllPassed)
@@ -272,21 +272,21 @@ Func __RunCrucialSetupWizardPageCtrlTest_SetPageCtrl(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetPageCtrl_InvalidNaNCtrl,          $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageCtrlTest_GetPageCtrl(ByRef $bAllPassed)
+Func __RunCrucialWizPageCtrlTest_GetPageCtrl(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestGetPageCtrl_Found,                   $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestGetPageCtrl_NotFound,                $bAllPassed)
 EndFunc
 
-Func _RunCrucialSetupWizardPageCtrlTests($bWriteSummary = True)
+Func _RunCrucialWizPageCtrlTests($bWriteSummary = True)
     Local $bAllPassed = True
-    __RunCrucialSetupWizardPageCtrlTest_CreatePageCtrls($bAllPassed)
-    __RunCrucialSetupWizardPageCtrlTest_ArrayInMapReplace($bAllPassed)
-    __RunCrucialSetupWizardPageCtrlTest_PageCtrlName($bAllPassed)
-    __RunCrucialSetupWizardPageCtrlTest_GetPageCtrlIndex($bAllPassed)
-    __RunCrucialSetupWizardPageCtrlTest_SetPageCtrl($bAllPassed)
-    __RunCrucialSetupWizardPageCtrlTest_GetPageCtrl($bAllPassed)
+    __RunCrucialWizPageCtrlTest_CreatePageCtrls($bAllPassed)
+    __RunCrucialWizPageCtrlTest_ArrayInMapReplace($bAllPassed)
+    __RunCrucialWizPageCtrlTest_PageCtrlName($bAllPassed)
+    __RunCrucialWizPageCtrlTest_GetPageCtrlIndex($bAllPassed)
+    __RunCrucialWizPageCtrlTest_SetPageCtrl($bAllPassed)
+    __RunCrucialWizPageCtrlTest_GetPageCtrl($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
-_TestFmkRunAllTests(_RunCrucialSetupWizardPageCtrlTests, $sScriptName)
+_TestFmkRunAllTests(_RunCrucialWizPageCtrlTests, $sScriptName)

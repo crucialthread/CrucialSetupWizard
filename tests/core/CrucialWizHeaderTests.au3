@@ -5,7 +5,7 @@
 #include "..\..\src\core\CrucialSetupWizard.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: CrucialSetupWizardHeaderTests.au3
+; Title .........: CrucialWizHeaderTests.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Author ........: Crucial Thread
@@ -13,7 +13,7 @@
 ;                  Tests _CreateSeparator, _CreateHeader, _CreateHeaderTitle, _CreateHeaderSub
 ;                  and _CreateButtons using stubs for GUI calls.
 ; ===============================================================================================================================
-Local $sScriptName = "CrucialSetupWizardHeaderTests.au3"
+Local $sScriptName = "CrucialWizHeaderTests.au3"
 
 ; ===============================================================================================================================
 ; Tests - _CreateSeparator
@@ -195,41 +195,41 @@ EndFunc
 ; ===============================================================================================================================
 ; Run tests
 ; ===============================================================================================================================
-Func __RunCrucialSetupWizardHeaderTest_CreateSeparator(ByRef $bAllPassed)
+Func __RunCrucialWizHeaderTest_CreateSeparator(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestCreateSeparator_InvalidGUI,        $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCreateSeparator_ValidGUI,           $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCreateSeparator_SetsBackground,     $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardHeaderTest_CreateHeaderTitle(ByRef $bAllPassed)
+Func __RunCrucialWizHeaderTest_CreateHeaderTitle(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestCreateHeaderTitle_InvalidGUI,       $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCreateHeaderTitle_ValidGUI,         $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCreateHeaderTitle_StoresText,       $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardHeaderTest_CreateHeaderSub(ByRef $bAllPassed)
+Func __RunCrucialWizHeaderTest_CreateHeaderSub(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestCreateHeaderSub_InvalidGUI,         $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCreateHeaderSub_ValidGUI,           $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCreateHeaderSub_EmptyTextByDefault, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardHeaderTest_CreateHeader(ByRef $bAllPassed)
+Func __RunCrucialWizHeaderTest_CreateHeader(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestCreateHeader_InvalidGUI,            $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCreateHeader_ReturnsMap,            $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCreateHeader_StoresCorrectIDs,      $bAllPassed)
 EndFunc
 
-Func _RunCrucialSetupWizardHeaderTests($bWriteSummary = True)
+Func _RunCrucialWizHeaderTests($bWriteSummary = True)
     Local $bAllPassed = True
-	__RunCrucialSetupWizardHeaderTest_CreateSeparator($bAllPassed)
-	__RunCrucialSetupWizardHeaderTest_CreateHeaderTitle($bAllPassed)
-	__RunCrucialSetupWizardHeaderTest_CreateHeaderSub($bAllPassed)
-	__RunCrucialSetupWizardHeaderTest_CreateHeader($bAllPassed)
+	__RunCrucialWizHeaderTest_CreateSeparator($bAllPassed)
+	__RunCrucialWizHeaderTest_CreateHeaderTitle($bAllPassed)
+	__RunCrucialWizHeaderTest_CreateHeaderSub($bAllPassed)
+	__RunCrucialWizHeaderTest_CreateHeader($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
-_TestFmkRunAllTests(_RunCrucialSetupWizardHeaderTests, $sScriptName)
+_TestFmkRunAllTests(_RunCrucialWizHeaderTests, $sScriptName)

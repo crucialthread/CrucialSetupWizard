@@ -5,7 +5,7 @@
 #include "..\..\src\core\CrucialSetupWizard.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: CrucialSetupWizardNavTests.au3
+; Title .........: CrucialWizNavTests.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -13,7 +13,7 @@
 ; Description ...: Unit tests for the Page Navigation and Main Buttons regions of CrucialSetupWizard.au3.
 ;                  Tests page movement logic, direction handling, and button control ID accessors.
 ; ===============================================================================================================================
-Local $sScriptName = "CrucialSetupWizardNavTests.au3"
+Local $sScriptName = "CrucialWizNavTests.au3"
 
 ; ===============================================================================================================================
 ; Tests - __NextPage
@@ -255,7 +255,7 @@ EndFunc
 ; ===============================================================================================================================
 ; Run tests
 ; ===============================================================================================================================
-Func __RunCrucialSetupWizardNavTest_NextPage(ByRef $bAllPassed)
+Func __RunCrucialWizNavTest_NextPage(ByRef $bAllPassed)
 	_TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestNextPage_FromFirstPage,     $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestNextPage_FromMidPage,       $bAllPassed)
@@ -264,7 +264,7 @@ Func __RunCrucialSetupWizardNavTest_NextPage(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestNextPage_InvalidPosition,   $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardNavTest_BackPage(ByRef $bAllPassed)
+Func __RunCrucialWizNavTest_BackPage(ByRef $bAllPassed)
 	_TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestBackPage_FromLastPage,      $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestBackPage_FromMidPage,       $bAllPassed)
@@ -273,7 +273,7 @@ Func __RunCrucialSetupWizardNavTest_BackPage(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestBackPage_InvalidPosition,   $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardNavTest_PageMove(ByRef $bAllPassed)
+Func __RunCrucialWizNavTest_PageMove(ByRef $bAllPassed)
 	_TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestPageMove_Next,                		  $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestPageMove_Back,                		  $bAllPassed)
@@ -281,7 +281,7 @@ Func __RunCrucialSetupWizardNavTest_PageMove(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestPageMove_OutOfRangeDirection, 		  $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardNavTest_NavPage(ByRef $bAllPassed)
+Func __RunCrucialWizNavTest_NavPage(ByRef $bAllPassed)
 	_TestFmkSeparator()
 	$bAllPassed = _TestFmkRun(_TestNavPage_InvalidWizard, 		  		  $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNavPage_InvalidPagePosition, 		  $bAllPassed)
@@ -292,13 +292,13 @@ Func __RunCrucialSetupWizardNavTest_NavPage(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNavPage_OutOfRangeDirection,  		  $bAllPassed)
 EndFunc
 
-Func _RunCrucialSetupWizardNavTests($bWriteSummary = True)
+Func _RunCrucialWizNavTests($bWriteSummary = True)
 	Local $bAllPassed = True
-	__RunCrucialSetupWizardNavTest_NextPage($bAllPassed)
-	__RunCrucialSetupWizardNavTest_BackPage($bAllPassed)
-	__RunCrucialSetupWizardNavTest_PageMove($bAllPassed)
-	__RunCrucialSetupWizardNavTest_NavPage($bAllPassed)
+	__RunCrucialWizNavTest_NextPage($bAllPassed)
+	__RunCrucialWizNavTest_BackPage($bAllPassed)
+	__RunCrucialWizNavTest_PageMove($bAllPassed)
+	__RunCrucialWizNavTest_NavPage($bAllPassed)
 	If $bWriteSummary Then _TestFmkSummary()
 	Return $bAllPassed
 EndFunc
-_TestFmkRunAllTests(_RunCrucialSetupWizardNavTests, $sScriptName)
+_TestFmkRunAllTests(_RunCrucialWizNavTests, $sScriptName)

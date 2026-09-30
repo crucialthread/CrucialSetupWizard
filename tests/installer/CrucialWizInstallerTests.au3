@@ -3,7 +3,7 @@
 #include "..\..\src\installer\CrucialSetupWizardInstaller.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: Crucial Setup Wizard - CrucialSetupWizardInstallerTests.au3
+; Title .........: Crucial Setup Wizard - CrucialWizInstallerTests.au3
 ; Version .......: 1.0.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -12,7 +12,7 @@
 ;                  Tests path detection, existing install detection, registry writers,
 ;                  install logic, and wizard setup.
 ; ===============================================================================================================================
-Local Const $TST_WIZ_INSTALLER_TESTS = "CrucialSetupWizardInstallerTests.au3"
+Local Const $TST_WIZ_INSTALLER_TESTS = "CrucialWizInstallerTests.au3"
 
 ;================================================================================================================================
 #Region ; Tests - __DetectPaths
@@ -696,14 +696,14 @@ EndFunc
 #Region ; Run tests
 ;================================================================================================================================
 
-Func __RunCrucialSetupWizardInstallerTest_DetectPaths(ByRef $bAllPassed)
+Func __RunCrucialWizInstallerTest_DetectPaths(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestDetectPaths_FromWowKey,              $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestDetectPaths_FallsBackToRegularKey,   $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestDetectPaths_FallsBackToDefault,      $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardInstallerTest_CheckExistingInstall(ByRef $bAllPassed)
+Func __RunCrucialWizInstallerTest_CheckExistingInstall(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestCheckExistingInstall_NoExistingInstall,               $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCheckExistingInstall_ExistingInstallFound,            $bAllPassed)
@@ -713,7 +713,7 @@ Func __RunCrucialSetupWizardInstallerTest_CheckExistingInstall(ByRef $bAllPassed
     $bAllPassed = _TestFmkRun(_TestCheckExistingInstall_KeepsDetectedInstallPathWhenNotExists,     $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardInstallerTest_WriteIncludeRegistry(ByRef $bAllPassed)
+Func __RunCrucialWizInstallerTest_WriteIncludeRegistry(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestWriteIncludeRegistry_WritesWhenEmpty,           		$bAllPassed)
     $bAllPassed = _TestFmkRun(_TestWriteIncludeRegistry_AppendsWhenOtherPathsExist,		$bAllPassed)
@@ -722,7 +722,7 @@ Func __RunCrucialSetupWizardInstallerTest_WriteIncludeRegistry(ByRef $bAllPassed
 	$bAllPassed = _TestFmkRun(_TestWriteIncludeRegistry_ThrowsOnRegWriteFailure, 		$bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardInstallerTest_WriteInstallRegistry(ByRef $bAllPassed)
+Func __RunCrucialWizInstallerTest_WriteInstallRegistry(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestWriteInstallRegistry_WritesAllKeys, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestWriteInstallRegistry_ErrorOnRegWriteFailForVersion, $bAllPassed)
@@ -731,7 +731,7 @@ Func __RunCrucialSetupWizardInstallerTest_WriteInstallRegistry(ByRef $bAllPassed
 	$bAllPassed = _TestFmkRun(_TestWriteInstallRegistry_ThrowsOnRegWriteFailure, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardInstallerTest_WriteUninstallRegistry(ByRef $bAllPassed)
+Func __RunCrucialWizInstallerTest_WriteUninstallRegistry(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestWriteUninstallRegistry_WritesAllKeys, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestWriteUninstallRegistry_ErrorOnRegWriteFailForDisplayName, $bAllPassed)
@@ -742,7 +742,7 @@ Func __RunCrucialSetupWizardInstallerTest_WriteUninstallRegistry(ByRef $bAllPass
 	$bAllPassed = _TestFmkRun(_TestWriteUninstallRegistry_ThrowsOnRegWriteFailure, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardInstallerTest_InstallFile(ByRef $bAllPassed)
+Func __RunCrucialWizInstallerTest_InstallFile(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestInstallFile_ReturnsTrueOnSuccess, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestInstallFile_SetErrorOnFailure, $bAllPassed)
@@ -750,24 +750,24 @@ Func __RunCrucialSetupWizardInstallerTest_InstallFile(ByRef $bAllPassed)
 
 EndFunc
 
-Func __RunCrucialSetupWizardInstallerTest_RunInstall(ByRef $bAllPassed)
+Func __RunCrucialWizInstallerTest_RunInstall(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestRunInstall_ReturnsTrueOnSuccess,  $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestRunInstall_ReturnsFalseOnFailure, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardInstallerTest_UpdateIncludePath(ByRef $bAllPassed)
+Func __RunCrucialWizInstallerTest_UpdateIncludePath(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestUpdateIncludePath_UpdatesGlobal, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardInstallerTest_UpdateReadyPage(ByRef $bAllPassed)
+Func __RunCrucialWizInstallerTest_UpdateReadyPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestUpdateReadyPage_ContainsIncludePath, $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestUpdateReadyPage_ContainsInstallPath, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardInstallerTest_Installation(ByRef $bAllPassed)
+Func __RunCrucialWizInstallerTest_Installation(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestInstallation_BuildsWizardWithCorrectPageCount, $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestInstallation_StoresPageIds,                    $bAllPassed)
@@ -781,24 +781,24 @@ EndFunc
 #Region ; [MAIN] Run Test Suite
 ;================================================================================================================================
 
-Func _RunCrucialSetupWizardInstallerTests($bWriteSummary = True)
+Func _RunCrucialWizInstallerTests($bWriteSummary = True)
     Local $bAllPassed = True
-    __RunCrucialSetupWizardInstallerTest_DetectPaths($bAllPassed)
-    __RunCrucialSetupWizardInstallerTest_CheckExistingInstall($bAllPassed)
-    __RunCrucialSetupWizardInstallerTest_WriteIncludeRegistry($bAllPassed)
-    __RunCrucialSetupWizardInstallerTest_WriteInstallRegistry($bAllPassed)
-    __RunCrucialSetupWizardInstallerTest_WriteUninstallRegistry($bAllPassed)
-	__RunCrucialSetupWizardInstallerTest_InstallFile($bAllPassed)
-    __RunCrucialSetupWizardInstallerTest_RunInstall($bAllPassed)
-    __RunCrucialSetupWizardInstallerTest_UpdateIncludePath($bAllPassed)
-    __RunCrucialSetupWizardInstallerTest_UpdateReadyPage($bAllPassed)
-    __RunCrucialSetupWizardInstallerTest_Installation($bAllPassed)
+    __RunCrucialWizInstallerTest_DetectPaths($bAllPassed)
+    __RunCrucialWizInstallerTest_CheckExistingInstall($bAllPassed)
+    __RunCrucialWizInstallerTest_WriteIncludeRegistry($bAllPassed)
+    __RunCrucialWizInstallerTest_WriteInstallRegistry($bAllPassed)
+    __RunCrucialWizInstallerTest_WriteUninstallRegistry($bAllPassed)
+	__RunCrucialWizInstallerTest_InstallFile($bAllPassed)
+    __RunCrucialWizInstallerTest_RunInstall($bAllPassed)
+    __RunCrucialWizInstallerTest_UpdateIncludePath($bAllPassed)
+    __RunCrucialWizInstallerTest_UpdateReadyPage($bAllPassed)
+    __RunCrucialWizInstallerTest_Installation($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
 
 ; Entry point
-_TestFmkRunAllTests(_RunCrucialSetupWizardInstallerTests, $TST_WIZ_INSTALLER_TESTS)
+_TestFmkRunAllTests(_RunCrucialWizInstallerTests, $TST_WIZ_INSTALLER_TESTS)
 
 ;================================================================================================================================
 #EndRegion <<<

@@ -3,7 +3,7 @@
 #include <Testable.au3>
 
 ; #INDEX# =======================================================================================================================
-; Title .........: Crucial Setup Wizard - CrucialTestableInclude.au3
+; Title .........: Crucial Setup Wizard - CrucialWizTstblInclude.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English

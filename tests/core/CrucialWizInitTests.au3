@@ -5,7 +5,7 @@
 #include "..\..\src\core\CrucialSetupWizard.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: CrucialSetupWizardInitTests.au3
+; Title .........: CrucialWizInitTests.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -14,7 +14,7 @@
 ;                  in CrucialSetupWizard.au3. Drives the wizard event loop by stubbing GUIGetMsg
 ;                  to return scripted button sequences.
 ; ===============================================================================================================================
-Local $sScriptName = "CrucialSetupWizardInitTests.au3"
+Local $sScriptName = "CrucialWizInitTests.au3"
 
 ; ===============================================================================================================================
 ; Helpers
@@ -185,7 +185,7 @@ EndFunc
 ; ===============================================================================================================================
 ; Run tests
 ; ===============================================================================================================================
-Func __RunCrucialSetupWizardInitTest_OnInitWizard(ByRef $bAllPassed)
+Func __RunCrucialWizInitTest_OnInitWizard(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestOnInitWizard_NextNavigatesToPage2,      $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestOnInitWizard_BackNavigatesToPage1,      $bAllPassed)
@@ -194,17 +194,17 @@ Func __RunCrucialSetupWizardInitTest_OnInitWizard(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestOnInitWizard_CustomButtonClickHandler,  $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardInitTest_InitWizard(ByRef $bAllPassed)
+Func __RunCrucialWizInitTest_InitWizard(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestInitWizard_NotReadyShowsError,          $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestInitWizard_ReadyDelegatesToOnInit,      $bAllPassed)
 EndFunc
 
-Func _RunCrucialSetupWizardInitTests($bWriteSummary = True)
+Func _RunCrucialWizInitTests($bWriteSummary = True)
     Local $bAllPassed = True
-	__RunCrucialSetupWizardInitTest_OnInitWizard($bAllPassed)
-	__RunCrucialSetupWizardInitTest_InitWizard($bAllPassed)
+	__RunCrucialWizInitTest_OnInitWizard($bAllPassed)
+	__RunCrucialWizInitTest_InitWizard($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
-_TestFmkRunAllTests(_RunCrucialSetupWizardInitTests, $sScriptName)
+_TestFmkRunAllTests(_RunCrucialWizInitTests, $sScriptName)

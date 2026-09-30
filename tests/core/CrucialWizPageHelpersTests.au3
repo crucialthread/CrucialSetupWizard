@@ -4,7 +4,7 @@
 #include "..\..\src\core\CrucialSetupWizard.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: CrucialSetupWizardPageHelpersTests.au3
+; Title .........: CrucialWizPageHelpersTests.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -13,7 +13,7 @@
 ;                  Tests page map construction, page status, position logic, and
 ;                  page collection management.
 ; ===============================================================================================================================
-Local $sScriptName = "CrucialSetupWizardPageHelpersTests.au3"
+Local $sScriptName = "CrucialWizPageHelpersTests.au3"
 
 ; ===============================================================================================================================
 ; Tests - __SetPageEvent
@@ -259,33 +259,33 @@ EndFunc
 ; ===============================================================================================================================
 ; Run tests
 ; ===============================================================================================================================
-Func __RunCrucialSetupWizardPageHelperTest_SetPageEvent(ByRef $bAllPassed)
+Func __RunCrucialWizPageHelperTest_SetPageEvent(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestSetPageEvent_ValidStatus,            $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetPageEvent_InvalidStatusFallsBack, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageHelperTest_IsPageStatusValid(ByRef $bAllPassed)
+Func __RunCrucialWizPageHelperTest_IsPageStatusValid(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestIsPageStatusValid_ValidStatuses,     $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestIsPageStatusValid_InvalidStatus,     $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageHelperTest_GetPageStatus(ByRef $bAllPassed)
+Func __RunCrucialWizPageHelperTest_GetPageStatus(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestGetPageStatus_ValidPage,             $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestGetPageStatus_InvalidMap,            $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestGetPageStatus_MissingStatus,         $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageHelperTest_IsValidPagePosition(ByRef $bAllPassed)
+Func __RunCrucialWizPageHelperTest_IsValidPagePosition(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestIsValidPagePosition_ValidPositions,  $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestIsValidPagePosition_InvalidPage,     $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestIsValidPagePosition_OutOfRange,      $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageHelperTest_GetPagePosition(ByRef $bAllPassed)
+Func __RunCrucialWizPageHelperTest_GetPagePosition(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestGetPagePosition_SinglePage,          $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestGetPagePosition_FirstPage,           $bAllPassed)
@@ -294,44 +294,44 @@ Func __RunCrucialSetupWizardPageHelperTest_GetPagePosition(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestGetPagePosition_InvalidPage,         $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageHelperTest_MaxPages(ByRef $bAllPassed)
+Func __RunCrucialWizPageHelperTest_MaxPages(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestMaxPages_EmptyMap,                   $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestMaxPages_WithPages,                  $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestMaxPages_InvalidMap,                 $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageHelperTest_GetPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageHelperTest_GetPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestGetPage_Found,                       $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestGetPage_NotFound,                    $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestGetPage_InvalidMap,                  $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageHelperTest_NewPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageHelperTest_NewPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestNewPage_DefaultValues,               $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestNewPage_CustomSubheading,            $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageHelperTest_AddPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageHelperTest_AddPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestAddPage_Returns1BasedIndex,          $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestAddPage_IncrementsIndex,             $bAllPassed)
 EndFunc
 
-Func _RunCrucialSetupWizardPageHelpersTests($bWriteSummary = True)
+Func _RunCrucialWizPageHelpersTests($bWriteSummary = True)
     Local $bAllPassed = True
-    __RunCrucialSetupWizardPageHelperTest_SetPageEvent($bAllPassed)
-    __RunCrucialSetupWizardPageHelperTest_IsPageStatusValid($bAllPassed)
-    __RunCrucialSetupWizardPageHelperTest_GetPageStatus($bAllPassed)
-    __RunCrucialSetupWizardPageHelperTest_IsValidPagePosition($bAllPassed)
-    __RunCrucialSetupWizardPageHelperTest_GetPagePosition($bAllPassed)
-    __RunCrucialSetupWizardPageHelperTest_MaxPages($bAllPassed)
-    __RunCrucialSetupWizardPageHelperTest_GetPage($bAllPassed)
-    __RunCrucialSetupWizardPageHelperTest_NewPage($bAllPassed)
-    __RunCrucialSetupWizardPageHelperTest_AddPage($bAllPassed)
+    __RunCrucialWizPageHelperTest_SetPageEvent($bAllPassed)
+    __RunCrucialWizPageHelperTest_IsPageStatusValid($bAllPassed)
+    __RunCrucialWizPageHelperTest_GetPageStatus($bAllPassed)
+    __RunCrucialWizPageHelperTest_IsValidPagePosition($bAllPassed)
+    __RunCrucialWizPageHelperTest_GetPagePosition($bAllPassed)
+    __RunCrucialWizPageHelperTest_MaxPages($bAllPassed)
+    __RunCrucialWizPageHelperTest_GetPage($bAllPassed)
+    __RunCrucialWizPageHelperTest_NewPage($bAllPassed)
+    __RunCrucialWizPageHelperTest_AddPage($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
-_TestFmkRunAllTests(_RunCrucialSetupWizardPageHelpersTests, $sScriptName)
+_TestFmkRunAllTests(_RunCrucialWizPageHelpersTests, $sScriptName)

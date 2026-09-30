@@ -4,7 +4,7 @@
 #include "..\..\src\core\CrucialSetupWizard.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: CrucialSetupWizardEventsTests.au3
+; Title .........: CrucialWizEventsTests.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -12,7 +12,7 @@
 ; Description ...: Unit tests for the Installer Events and Events Handler regions of CrucialSetupWizard.au3.
 ;                  Tests event state management, handler registration, and event dispatching.
 ; ===============================================================================================================================
-Local $sScriptName = "CrucialSetupWizardEventsTests.au3"
+Local $sScriptName = "CrucialWizEventsTests.au3"
 
 ; ===============================================================================================================================
 ; Helpers
@@ -431,14 +431,14 @@ EndFunc
 ; ===============================================================================================================================
 ; Run tests
 ; ===============================================================================================================================
-Func __RunCrucialSetupWizardEventsTest_GetSetInstallerEvent(ByRef $bAllPassed)
+Func __RunCrucialWizEventsTest_GetSetInstallerEvent(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestGetInstallerEvent_ReturnsDefault,            $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetInstallerEvent_SetsCorrectly,             $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetInstallerEvent_DefaultParam,              $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardEventsTest_IsValidArgs(ByRef $bAllPassed)
+Func __RunCrucialWizEventsTest_IsValidArgs(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestIsValidArgs_NonArray,            $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestIsValidArgs_EmptyArray,          $bAllPassed)
@@ -446,7 +446,7 @@ Func __RunCrucialSetupWizardEventsTest_IsValidArgs(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestIsValidArgs_ValidArgs,           $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardEventsTest_HasArgs(ByRef $bAllPassed)
+Func __RunCrucialWizEventsTest_HasArgs(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestHasArgs_ValidArgs,                           $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestHasArgs_InvalidArgs,                         $bAllPassed)
@@ -454,7 +454,7 @@ Func __RunCrucialSetupWizardEventsTest_HasArgs(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestHasArgs_NonArray,                            $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardEventsTest_RunEventHandler(ByRef $bAllPassed)
+Func __RunCrucialWizEventsTest_RunEventHandler(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestRunEventHandler_ValidHandler,                $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestRunEventHandler_WithArgs,                    $bAllPassed)
@@ -466,7 +466,7 @@ Func __RunCrucialSetupWizardEventsTest_RunEventHandler(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestRunEventHandler_InvalidArgsArray,        	$bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardEventsTest_OnObjEvent(ByRef $bAllPassed)
+Func __RunCrucialWizEventsTest_OnObjEvent(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestOnObjEvent_CallsHandler,                $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestOnObjEvent_InvalidMap,                  $bAllPassed)
@@ -474,20 +474,20 @@ Func __RunCrucialSetupWizardEventsTest_OnObjEvent(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestOnObjEvent_MissingHandler,              $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardEventsTest_OnObjBtnClick(ByRef $bAllPassed)
+Func __RunCrucialWizEventsTest_OnObjBtnClick(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestOnObjBtnClick_CallsRegisteredHandler,   $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestOnObjBtnClick_UnregisteredButton,       $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestOnObjBtnClick_InvalidPage,              $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardEventsTest_HandlerArgs(ByRef $bAllPassed)
+Func __RunCrucialWizEventsTest_HandlerArgs(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestHandlerArgs_NoArgs,                          $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestHandlerArgs_WithArgs,                        $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardEventsTest_SetEventHandler(ByRef $bAllPassed)
+Func __RunCrucialWizEventsTest_SetEventHandler(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestSetEventHandler_ValidHandler,                $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetEventHandler_WithArgs,                    $bAllPassed)
@@ -495,25 +495,25 @@ Func __RunCrucialSetupWizardEventsTest_SetEventHandler(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetEventHandler_InvalidHandler,              $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardEventsTest_SetPageBtnOnClickEvent(ByRef $bAllPassed)
+Func __RunCrucialWizEventsTest_SetPageBtnOnClickEvent(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestSetPageBtnOnClickEvent_RegistersHandler,     $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetPageBtnOnClickEvent_InvalidPage,          $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetPageBtnOnClickEvent_InvalidHandler,       $bAllPassed)
 EndFunc
 
-Func _RunCrucialSetupWizardEventsTests($bWriteSummary = True)
+Func _RunCrucialWizEventsTests($bWriteSummary = True)
     Local $bAllPassed = True
-	__RunCrucialSetupWizardEventsTest_GetSetInstallerEvent($bAllPassed)
-	__RunCrucialSetupWizardEventsTest_IsValidArgs($bAllPassed)
-	__RunCrucialSetupWizardEventsTest_HasArgs($bAllPassed)
-	__RunCrucialSetupWizardEventsTest_RunEventHandler($bAllPassed)
-	__RunCrucialSetupWizardEventsTest_OnObjEvent($bAllPassed)
-	__RunCrucialSetupWizardEventsTest_OnObjBtnClick($bAllPassed)
-	__RunCrucialSetupWizardEventsTest_HandlerArgs($bAllPassed)
-	__RunCrucialSetupWizardEventsTest_SetEventHandler($bAllPassed)
-	__RunCrucialSetupWizardEventsTest_SetPageBtnOnClickEvent($bAllPassed)
+	__RunCrucialWizEventsTest_GetSetInstallerEvent($bAllPassed)
+	__RunCrucialWizEventsTest_IsValidArgs($bAllPassed)
+	__RunCrucialWizEventsTest_HasArgs($bAllPassed)
+	__RunCrucialWizEventsTest_RunEventHandler($bAllPassed)
+	__RunCrucialWizEventsTest_OnObjEvent($bAllPassed)
+	__RunCrucialWizEventsTest_OnObjBtnClick($bAllPassed)
+	__RunCrucialWizEventsTest_HandlerArgs($bAllPassed)
+	__RunCrucialWizEventsTest_SetEventHandler($bAllPassed)
+	__RunCrucialWizEventsTest_SetPageBtnOnClickEvent($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
-_TestFmkRunAllTests(_RunCrucialSetupWizardEventsTests, $sScriptName)
+_TestFmkRunAllTests(_RunCrucialWizEventsTests, $sScriptName)

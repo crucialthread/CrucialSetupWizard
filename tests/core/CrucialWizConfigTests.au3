@@ -4,7 +4,7 @@
 #include "..\..\src\core\CrucialSetupWizard.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: CrucialSetupWizardConfigTests.au3
+; Title .........: CrucialWizConfigTests.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -12,7 +12,7 @@
 ; Description ...: Unit tests for the Configs region of CrucialSetupWizard.au3.
 ;                  Tests config map construction, validation, and fallback behavior.
 ; ===============================================================================================================================
-Local $sScriptName = "CrucialSetupWizardConfigTests.au3"
+Local $sScriptName = "CrucialWizConfigTests.au3"
 
 ; ===============================================================================================================================
 ; Tests - _NewWndCfg
@@ -226,38 +226,38 @@ EndFunc
 ; ===============================================================================================================================
 ; Run tests
 ; ===============================================================================================================================
-Func __RunCrucialSetupWizardConfigTest_NewWndCfg(ByRef $bAllPassed)
+Func __RunCrucialWizConfigTest_NewWndCfg(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestNewWndCfg_DefaultValues, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewWndCfg_CustomValues,  $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardConfigTest_NewFontCfg(ByRef $bAllPassed)
+Func __RunCrucialWizConfigTest_NewFontCfg(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestNewFontCfg_DefaultValues, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewFontCfg_CustomValues,  $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardConfigTest_NewBtnDim(ByRef $bAllPassed)
+Func __RunCrucialWizConfigTest_NewBtnDim(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestNewBtnDim_DefaultValues, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewBtnDim_CustomValues,  $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardConfigTest_NewBtnCaptions(ByRef $bAllPassed)
+Func __RunCrucialWizConfigTest_NewBtnCaptions(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestNewBtnCaptions_DefaultValues, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewBtnCaptions_CustomValues,  $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardConfigTest_NewBtnCfg(ByRef $bAllPassed)
+Func __RunCrucialWizConfigTest_NewBtnCfg(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestNewBtnCfg_DefaultValues, 		 $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewBtnCfg_FallsBackOnInvalidDim,  $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewBtnCfg_FallsBackOnInvalidCapt, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardConfigTest_NewInstallerCfg(ByRef $bAllPassed)
+Func __RunCrucialWizConfigTest_NewInstallerCfg(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestNewInstallerCfg_DefaultValues, 		   $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewInstallerCfg_FallsBackOnInvalidWnd,  $bAllPassed)
@@ -265,7 +265,7 @@ Func __RunCrucialSetupWizardConfigTest_NewInstallerCfg(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewInstallerCfg_FallsBackOnInvalidBtn,  $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardConfigTest_IsValidInstallerCfg(ByRef $bAllPassed)
+Func __RunCrucialWizConfigTest_IsValidInstallerCfg(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestIsValidInstallerCfg_ValidConfig, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestIsValidInstallerCfg_EmptyMap, 	$bAllPassed)
@@ -273,16 +273,16 @@ Func __RunCrucialSetupWizardConfigTest_IsValidInstallerCfg(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestIsValidInstallerCfg_InvalidType, $bAllPassed)
 EndFunc
 
-Func _RunCrucialSetupWizardConfigTests($bWriteSummary = True)
+Func _RunCrucialWizConfigTests($bWriteSummary = True)
     Local $bAllPassed = True
-    __RunCrucialSetupWizardConfigTest_NewWndCfg($bAllPassed)
-    __RunCrucialSetupWizardConfigTest_NewFontCfg($bAllPassed)
-	__RunCrucialSetupWizardConfigTest_NewBtnDim($bAllPassed)
-	__RunCrucialSetupWizardConfigTest_NewBtnCaptions($bAllPassed)
-	__RunCrucialSetupWizardConfigTest_NewBtnCfg($bAllPassed)
-	__RunCrucialSetupWizardConfigTest_NewInstallerCfg($bAllPassed)
-	__RunCrucialSetupWizardConfigTest_IsValidInstallerCfg($bAllPassed)
+    __RunCrucialWizConfigTest_NewWndCfg($bAllPassed)
+    __RunCrucialWizConfigTest_NewFontCfg($bAllPassed)
+	__RunCrucialWizConfigTest_NewBtnDim($bAllPassed)
+	__RunCrucialWizConfigTest_NewBtnCaptions($bAllPassed)
+	__RunCrucialWizConfigTest_NewBtnCfg($bAllPassed)
+	__RunCrucialWizConfigTest_NewInstallerCfg($bAllPassed)
+	__RunCrucialWizConfigTest_IsValidInstallerCfg($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
-_TestFmkRunAllTests(_RunCrucialSetupWizardConfigTests, $sScriptName)
+_TestFmkRunAllTests(_RunCrucialWizConfigTests, $sScriptName)

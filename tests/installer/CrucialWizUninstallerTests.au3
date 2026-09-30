@@ -3,7 +3,7 @@
 #include "..\..\src\installer\CrucialSetupWizardUninstaller.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: Crucial Setup Wizard - CrucialSetupWizardUninstallerTests.au3
+; Title .........: Crucial Setup Wizard - CrucialWizUninstallerTests.au3
 ; Version .......: 1.0.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -12,7 +12,7 @@
 ;                  Tests install record reading, registry and folder cleanup,
 ;                  uninstall logic, and wizard setup.
 ; ===============================================================================================================================
-Local Const $TST_WIZ_UNINSTALLER_TESTS = "CrucialSetupWizardUninstallerTests.au3"
+Local Const $TST_WIZ_UNINSTALLER_TESTS = "CrucialWizUninstallerTests.au3"
 
 ;================================================================================================================================
 #Region ; Tests - __ReadInstallRecord
@@ -500,25 +500,25 @@ EndFunc
 #Region ; Run tests
 ;================================================================================================================================
 
-Func __RunCrucialSetupWizardUninstallerTest_ReadInstallRecord(ByRef $bAllPassed)
+Func __RunCrucialWizUninstallerTest_ReadInstallRecord(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestReadInstallRecord_Success,            $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestReadInstallRecord_IncludePathMissing, $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestReadInstallRecord_InstallPathMissing, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardUninstallerTest_IsRunningFromInstallFolder(ByRef $bAllPassed)
+Func __RunCrucialWizUninstallerTest_IsRunningFromInstallFolder(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestIsRunningFromInstallFolder_True,  $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestIsRunningFromInstallFolder_False, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardUninstallerTest_RelaunchFromTemp(ByRef $bAllPassed)
+Func __RunCrucialWizUninstallerTest_RelaunchFromTemp(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestRelaunchFromTemp_CopiesAndLaunches, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardUninstallerTest_RemoveIncludeRegistry(ByRef $bAllPassed)
+Func __RunCrucialWizUninstallerTest_RemoveIncludeRegistry(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestRemoveIncludeRegistry_RemovesOnlyTFWPath,        $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestRemoveIncludeRegistry_DeletesKeyWhenOnlyTFWPath, $bAllPassed)
@@ -529,7 +529,7 @@ Func __RunCrucialSetupWizardUninstallerTest_RemoveIncludeRegistry(ByRef $bAllPas
 	$bAllPassed = _TestFmkRun(_TestRemoveIncludeRegistry_ThrowsOnRegWriteFailure,   $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardUninstallerTest_RemoveFolderIfEmpty(ByRef $bAllPassed)
+Func __RunCrucialWizUninstallerTest_RemoveFolderIfEmpty(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestRemoveFolderIfEmpty_RemovesWhenEmpty,             $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestRemoveFolderIfEmpty_DoesNotRemoveWhenNotEmpty,    $bAllPassed)
@@ -538,7 +538,7 @@ Func __RunCrucialSetupWizardUninstallerTest_RemoveFolderIfEmpty(ByRef $bAllPasse
 	$bAllPassed = _TestFmkRun(_TestRemoveFolderIfEmpty_ThrowsOnDirRemoveFailure, 	 $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardUninstallerTest_RemoveInstalledFile(ByRef $bAllPassed)
+Func __RunCrucialWizUninstallerTest_RemoveInstalledFile(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestRemoveInstalledFile_ReturnsTrueOnSuccess,   $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestRemoveInstalledFile_SetErrorOnFailure,      $bAllPassed)
@@ -547,18 +547,18 @@ Func __RunCrucialSetupWizardUninstallerTest_RemoveInstalledFile(ByRef $bAllPasse
 	$bAllPassed = _TestFmkRun(_TestRemoveInstalledFile_SkipsWhenFileNotExists, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardUninstallerTest_RunUninstall(ByRef $bAllPassed)
+Func __RunCrucialWizUninstallerTest_RunUninstall(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestRunUninstall_ReturnsTrueOnSuccess,  $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestRunUninstall_ReturnsFalseOnFailure, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardUninstallerTest_UninstallUpdateReadyPage(ByRef $bAllPassed)
+Func __RunCrucialWizUninstallerTest_UninstallUpdateReadyPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestUpdateReadyPage_ContainsPaths, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardUninstallerTest_Uninstall(ByRef $bAllPassed)
+Func __RunCrucialWizUninstallerTest_Uninstall(ByRef $bAllPassed)
     _TestFmkSeparator()
 	$bAllPassed = _TestFmkRun(_TestUninstall_BuildsWizardCorrectly, $bAllPassed)
 EndFunc
@@ -571,23 +571,23 @@ EndFunc
 #Region ; [MAIN] Run Test Suite
 ;================================================================================================================================
 
-Func _RunCrucialSetupWizardUninstallerTests($bWriteSummary = True)
+Func _RunCrucialWizUninstallerTests($bWriteSummary = True)
     Local $bAllPassed = True
-    __RunCrucialSetupWizardUninstallerTest_ReadInstallRecord($bAllPassed)
-    __RunCrucialSetupWizardUninstallerTest_IsRunningFromInstallFolder($bAllPassed)
-    __RunCrucialSetupWizardUninstallerTest_RelaunchFromTemp($bAllPassed)
-    __RunCrucialSetupWizardUninstallerTest_RemoveIncludeRegistry($bAllPassed)
-    __RunCrucialSetupWizardUninstallerTest_RemoveFolderIfEmpty($bAllPassed)
-	__RunCrucialSetupWizardUninstallerTest_RemoveInstalledFile($bAllPassed)
-    __RunCrucialSetupWizardUninstallerTest_RunUninstall($bAllPassed)
-    __RunCrucialSetupWizardUninstallerTest_UninstallUpdateReadyPage($bAllPassed)
-    __RunCrucialSetupWizardUninstallerTest_Uninstall($bAllPassed)
+    __RunCrucialWizUninstallerTest_ReadInstallRecord($bAllPassed)
+    __RunCrucialWizUninstallerTest_IsRunningFromInstallFolder($bAllPassed)
+    __RunCrucialWizUninstallerTest_RelaunchFromTemp($bAllPassed)
+    __RunCrucialWizUninstallerTest_RemoveIncludeRegistry($bAllPassed)
+    __RunCrucialWizUninstallerTest_RemoveFolderIfEmpty($bAllPassed)
+	__RunCrucialWizUninstallerTest_RemoveInstalledFile($bAllPassed)
+    __RunCrucialWizUninstallerTest_RunUninstall($bAllPassed)
+    __RunCrucialWizUninstallerTest_UninstallUpdateReadyPage($bAllPassed)
+    __RunCrucialWizUninstallerTest_Uninstall($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
 
 ; Entry point
-_TestFmkRunAllTests(_RunCrucialSetupWizardUninstallerTests, $TST_WIZ_UNINSTALLER_TESTS)
+_TestFmkRunAllTests(_RunCrucialWizUninstallerTests, $TST_WIZ_UNINSTALLER_TESTS)
 
 ;================================================================================================================================
 #EndRegion <<<

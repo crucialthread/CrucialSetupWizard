@@ -5,7 +5,7 @@
 #include "..\..\src\core\CrucialSetupWizard.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: CrucialSetupWizardPageTemplateEventsTests.au3
+; Title .........: CrucialWizPageTemplateEventsTests.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -14,7 +14,7 @@
 ;                  regions of CrucialSetupWizard.au3.
 ;                  Tests handler validation, argument passing, and page event behavior.
 ; ===============================================================================================================================
-Local $sScriptName = "CrucialSetupWizardPageTemplateEventsTests.au3"
+Local $sScriptName = "CrucialWizPageTemplateEventsTests.au3"
 
 ; ===============================================================================================================================
 ; Test helpers
@@ -339,7 +339,7 @@ EndFunc
 ; ===============================================================================================================================
 ; Run tests
 ; ===============================================================================================================================
-Func __RunCrucialSetupWizardPageTemplateEventsTest_RunUpdateInfoFunc(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplateEventsTest_RunUpdateInfoFunc(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestRunUpdateInfoFunc_ValidHandler,      $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestRunUpdateInfoFunc_InvalidHandler,    $bAllPassed)
@@ -347,61 +347,61 @@ Func __RunCrucialSetupWizardPageTemplateEventsTest_RunUpdateInfoFunc(ByRef $bAll
     $bAllPassed = _TestFmkRun(_TestRunUpdateInfoFunc_NonStringReturn,   $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplateEventsTest_RunApplyFunc(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplateEventsTest_RunApplyFunc(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestRunApplyFunc_ValidHandler,      $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestRunApplyFunc_InvalidHandler,    $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestRunApplyFunc_GuardsAgainstSelf, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplateEventsTest_RunUpdateSrcFunc(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplateEventsTest_RunUpdateSrcFunc(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestRunUpdateSrcFunc_ValidHandler,      $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestRunUpdateSrcFunc_InvalidHandler,    $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestRunUpdateSrcFunc_GuardsAgainstSelf, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplateEventsTest_OnLoadReadyPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplateEventsTest_OnLoadReadyPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestOnLoadReadyPage_SetsLabelText,  $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestOnLoadReadyPage_DefaultHandler, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplateEventsTest_AfterLoadProgressPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplateEventsTest_AfterLoadProgressPage(ByRef $bAllPassed)
     _TestFmkSeparator()
 	$bAllPassed = _TestFmkRun(_TestAfterLoadProgressPage_Success,     $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestAfterLoadProgressPage_Failure,     $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplateEventsTest_AfterLoadFinishPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplateEventsTest_AfterLoadFinishPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestAfterLoadFinishPage_SetsCloseEvent, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplateEventsTest_OnCloseFinishPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplateEventsTest_OnCloseFinishPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestOnCloseFinishPage_OpensDocWhenChecked,    $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestOnCloseFinishPage_DoesNothingWhenUnchecked, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplateEventsTest_OnClickSetFolder(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplateEventsTest_OnClickSetFolder(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestOnClickSetFolder_UpdatesInputPath,      $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestOnClickSetFolder_DoesNothingWhenCancelled, $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestOnClickSetFolder_CallsUpdateSrcFunc,    $bAllPassed)
 EndFunc
 
-Func _RunCrucialSetupWizardPageTemplateEventsTests($bWriteSummary = True)
+Func _RunCrucialWizPageTemplateEventsTests($bWriteSummary = True)
     Local $bAllPassed = True
-    __RunCrucialSetupWizardPageTemplateEventsTest_RunUpdateInfoFunc($bAllPassed)
-    __RunCrucialSetupWizardPageTemplateEventsTest_RunApplyFunc($bAllPassed)
-    __RunCrucialSetupWizardPageTemplateEventsTest_RunUpdateSrcFunc($bAllPassed)
-    __RunCrucialSetupWizardPageTemplateEventsTest_OnLoadReadyPage($bAllPassed)
-    __RunCrucialSetupWizardPageTemplateEventsTest_AfterLoadProgressPage($bAllPassed)
-    __RunCrucialSetupWizardPageTemplateEventsTest_AfterLoadFinishPage($bAllPassed)
-    __RunCrucialSetupWizardPageTemplateEventsTest_OnCloseFinishPage($bAllPassed)
-    __RunCrucialSetupWizardPageTemplateEventsTest_OnClickSetFolder($bAllPassed)
+    __RunCrucialWizPageTemplateEventsTest_RunUpdateInfoFunc($bAllPassed)
+    __RunCrucialWizPageTemplateEventsTest_RunApplyFunc($bAllPassed)
+    __RunCrucialWizPageTemplateEventsTest_RunUpdateSrcFunc($bAllPassed)
+    __RunCrucialWizPageTemplateEventsTest_OnLoadReadyPage($bAllPassed)
+    __RunCrucialWizPageTemplateEventsTest_AfterLoadProgressPage($bAllPassed)
+    __RunCrucialWizPageTemplateEventsTest_AfterLoadFinishPage($bAllPassed)
+    __RunCrucialWizPageTemplateEventsTest_OnCloseFinishPage($bAllPassed)
+    __RunCrucialWizPageTemplateEventsTest_OnClickSetFolder($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
-_TestFmkRunAllTests(_RunCrucialSetupWizardPageTemplateEventsTests, $sScriptName)
+_TestFmkRunAllTests(_RunCrucialWizPageTemplateEventsTests, $sScriptName)

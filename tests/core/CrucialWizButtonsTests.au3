@@ -5,7 +5,7 @@
 #include "..\..\src\core\CrucialSetupWizard.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: CrucialSetupWizardButtonsTests.au3
+; Title .........: CrucialWizButtonsTests.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -14,7 +14,7 @@
 ;                  Tests __BtnCaptionsUpdate, __SetButtons, __GetButton, __GetBtnCancel,
 ;                  __GetBtnBack, __GetBtnNext, and _CreateButtons.
 ; ===============================================================================================================================
-Local $sScriptName = "CrucialSetupWizardButtonsTests.au3"
+Local $sScriptName = "CrucialWizButtonsTests.au3"
 
 ; ===============================================================================================================================
 ; Helpers
@@ -409,13 +409,13 @@ EndFunc
 ; ===============================================================================================================================
 ; Run tests
 ; ===============================================================================================================================
-Func __RunCrucialSetupWizardButtonsTest_BtnCaptionsUpdate(ByRef $bAllPassed)
+Func __RunCrucialWizButtonsTest_BtnCaptionsUpdate(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestBtnCaptionsUpdate_UpdatesGlobals,   $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestBtnCaptionsUpdate_InvalidConfig,    $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardButtonsTest_SetButtons(ByRef $bAllPassed)
+Func __RunCrucialWizButtonsTest_SetButtons(ByRef $bAllPassed)
     _TestFmkSeparator()
 	$bAllPassed = _TestFmkRun(_TestSetButtons_InvalidMap,              $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetButtons_ProceedPage,             $bAllPassed)
@@ -429,7 +429,7 @@ Func __RunCrucialSetupWizardButtonsTest_SetButtons(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestSetButtons_UnknownPosition,         $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardButtonsTest_GetButton(ByRef $bAllPassed)
+Func __RunCrucialWizButtonsTest_GetButton(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestGetButton_Cancel,                   $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestGetButton_Back,                     $bAllPassed)
@@ -441,7 +441,7 @@ Func __RunCrucialSetupWizardButtonsTest_GetButton(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestGetBtnNext_ReturnsId,               $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardButtonsTest_CreateButtons(ByRef $bAllPassed)
+Func __RunCrucialWizButtonsTest_CreateButtons(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestCreateButtons_InvalidGUI,           $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCreateButtons_ReturnsMap,           $bAllPassed)
@@ -449,13 +449,13 @@ Func __RunCrucialSetupWizardButtonsTest_CreateButtons(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCreateButtons_UsesConfigCaptions,   $bAllPassed)
 EndFunc
 
-Func _RunCrucialSetupWizardButtonsTests($bWriteSummary = True)
+Func _RunCrucialWizButtonsTests($bWriteSummary = True)
     Local $bAllPassed = True
-	__RunCrucialSetupWizardButtonsTest_BtnCaptionsUpdate($bAllPassed)
-	__RunCrucialSetupWizardButtonsTest_SetButtons($bAllPassed)
-	__RunCrucialSetupWizardButtonsTest_GetButton($bAllPassed)
-	__RunCrucialSetupWizardButtonsTest_CreateButtons($bAllPassed)
+	__RunCrucialWizButtonsTest_BtnCaptionsUpdate($bAllPassed)
+	__RunCrucialWizButtonsTest_SetButtons($bAllPassed)
+	__RunCrucialWizButtonsTest_GetButton($bAllPassed)
+	__RunCrucialWizButtonsTest_CreateButtons($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
-_TestFmkRunAllTests(_RunCrucialSetupWizardButtonsTests, $sScriptName)
+_TestFmkRunAllTests(_RunCrucialWizButtonsTests, $sScriptName)

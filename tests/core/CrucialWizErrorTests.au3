@@ -4,7 +4,7 @@
 #include "..\..\src\core\CrucialSetupWizard.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: CrucialSetupWizardErrorTests.au3
+; Title .........: CrucialWizErrorTests.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -12,7 +12,7 @@
 ; Description ...: Unit tests for the Error Management region of CrucialSetupWizard.au3.
 ;                  Tests error message mapping and debug error info behavior.
 ; ===============================================================================================================================
-Local $sScriptName = "CrucialSetupWizardErrorTests.au3"
+Local $sScriptName = "CrucialWizErrorTests.au3"
 
 ; ===============================================================================================================================
 ; Tests - __CrucialInstErrMsg
@@ -105,7 +105,7 @@ EndFunc
 ; ===============================================================================================================================
 ; Run tests
 ; ===============================================================================================================================
-Func __RunCrucialSetupWizardErrorTest_CrucialInstErrMsg(ByRef $bAllPassed)
+Func __RunCrucialWizErrorTest_CrucialInstErrMsg(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestCrucialInstErrMsg_InvalidWizard, $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCrucialInstErrMsg_InvalidCfg,    $bAllPassed)
@@ -115,7 +115,7 @@ Func __RunCrucialSetupWizardErrorTest_CrucialInstErrMsg(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestCrucialInstErrMsg_UnknownError,  $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardErrorTest_DebugErrorInfo(ByRef $bAllPassed)
+Func __RunCrucialWizErrorTest_DebugErrorInfo(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestDebugErrorInfo_SetsError,             $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestDebugErrorInfo_SetsExtended,          $bAllPassed)
@@ -123,11 +123,11 @@ Func __RunCrucialSetupWizardErrorTest_DebugErrorInfo(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestDebugErrorInfo_DoesNotWriteInTestMode,$bAllPassed)
 EndFunc
 
-Func _RunCrucialSetupWizardErrorTests($bWriteSummary = True)
+Func _RunCrucialWizErrorTests($bWriteSummary = True)
     Local $bAllPassed = True
-    __RunCrucialSetupWizardErrorTest_CrucialInstErrMsg($bAllPassed)
-    __RunCrucialSetupWizardErrorTest_DebugErrorInfo($bAllPassed)
+    __RunCrucialWizErrorTest_CrucialInstErrMsg($bAllPassed)
+    __RunCrucialWizErrorTest_DebugErrorInfo($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
-_TestFmkRunAllTests(_RunCrucialSetupWizardErrorTests, $sScriptName)
+_TestFmkRunAllTests(_RunCrucialWizErrorTests, $sScriptName)

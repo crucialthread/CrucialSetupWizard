@@ -5,7 +5,7 @@
 #include "..\..\src\core\CrucialSetupWizard.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: CrucialSetupWizardPageOpsTests.au3
+; Title .........: CrucialWizPageOpsTests.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -14,7 +14,7 @@
 ;                  Tests page hide/show behavior, subheader update, page load, page close,
 ;                  and full page set sequence.
 ; ===============================================================================================================================
-Local $sScriptName = "CrucialSetupWizardPageOpsTests.au3"
+Local $sScriptName = "CrucialWizPageOpsTests.au3"
 
 ; ===============================================================================================================================
 ; Tests - __HidePage
@@ -422,30 +422,30 @@ EndFunc
 ; ===============================================================================================================================
 ; Run tests
 ; ===============================================================================================================================
-Func __RunCrucialSetupWizardPageOpsTest_HidePage(ByRef $bAllPassed)
+Func __RunCrucialWizPageOpsTest_HidePage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestHidePage_HidesAllControls, $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestHidePage_InvalidArray,     $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageOpsTest_HidePages(ByRef $bAllPassed)
+Func __RunCrucialWizPageOpsTest_HidePages(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestHidePages_HidesAllPages, $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestHidePages_InvalidMap,    $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageOpsTest_ShowPageControls(ByRef $bAllPassed)
+Func __RunCrucialWizPageOpsTest_ShowPageControls(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestShowPageControls_ShowsAllControls, $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestShowPageControls_InvalidPage,      $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageOpsTest_SetPageSubHeader(ByRef $bAllPassed)
+Func __RunCrucialWizPageOpsTest_SetPageSubHeader(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestSetPageSubHeader_SetsData, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageOpsTest_PageLoad(ByRef $bAllPassed)
+Func __RunCrucialWizPageOpsTest_PageLoad(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestPageLoad_InvalidPage,       $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestPageLoad_InvalidPosition,   $bAllPassed)
@@ -457,36 +457,36 @@ Func __RunCrucialSetupWizardPageOpsTest_PageLoad(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestPageLoad_TriggersAfterLoad, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageOpsTest_ClosePage(ByRef $bAllPassed)
+Func __RunCrucialWizPageOpsTest_ClosePage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestClosePage_TriggersOnClose, $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestClosePage_InvalidPages,    $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageOpsTest_SetPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageOpsTest_SetPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestSetPage_HidesPagesBeforeLoad,  $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetPage_LoadsCorrectPage, 	  $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageOpsTest_ProgressStep(ByRef $bAllPassed)
+Func __RunCrucialWizPageOpsTest_ProgressStep(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestProgressStep_SetsProgressValue,  $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestProgressStep_SetsStatusLabel,    $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestProgressStep_100PercentOnLastStep, $bAllPassed)
 EndFunc
 
-Func _RunCrucialSetupWizardPageOpsTests($bWriteSummary = True)
+Func _RunCrucialWizPageOpsTests($bWriteSummary = True)
     Local $bAllPassed = True
-    __RunCrucialSetupWizardPageOpsTest_HidePage($bAllPassed)
-    __RunCrucialSetupWizardPageOpsTest_HidePages($bAllPassed)
-    __RunCrucialSetupWizardPageOpsTest_ShowPageControls($bAllPassed)
-    __RunCrucialSetupWizardPageOpsTest_SetPageSubHeader($bAllPassed)
-    __RunCrucialSetupWizardPageOpsTest_PageLoad($bAllPassed)
-    __RunCrucialSetupWizardPageOpsTest_ClosePage($bAllPassed)
-    __RunCrucialSetupWizardPageOpsTest_SetPage($bAllPassed)
-	__RunCrucialSetupWizardPageOpsTest_ProgressStep($bAllPassed)
+    __RunCrucialWizPageOpsTest_HidePage($bAllPassed)
+    __RunCrucialWizPageOpsTest_HidePages($bAllPassed)
+    __RunCrucialWizPageOpsTest_ShowPageControls($bAllPassed)
+    __RunCrucialWizPageOpsTest_SetPageSubHeader($bAllPassed)
+    __RunCrucialWizPageOpsTest_PageLoad($bAllPassed)
+    __RunCrucialWizPageOpsTest_ClosePage($bAllPassed)
+    __RunCrucialWizPageOpsTest_SetPage($bAllPassed)
+	__RunCrucialWizPageOpsTest_ProgressStep($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
-_TestFmkRunAllTests(_RunCrucialSetupWizardPageOpsTests, $sScriptName)
+_TestFmkRunAllTests(_RunCrucialWizPageOpsTests, $sScriptName)

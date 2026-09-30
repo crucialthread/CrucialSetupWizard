@@ -1,8 +1,8 @@
-#include "CrucialSetupWizardInstallerTests.au3"
-#include "CrucialSetupWizardUninstallerTests.au3"
+#include "CrucialWizInstallerTests.au3"
+#include "CrucialWizUninstallerTests.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: Crucial Setup Wizard - _RunAllTests_CrucialSetupWizardInstaller.au3
+; Title .........: Crucial Setup Wizard - _RunAllTests_CrucialWizInstaller.au3
 ; Version .......: 1.0.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -11,13 +11,13 @@
 ; ===============================================================================================================================
 _TestFmk_SetSilentMode(True)
 
-Func _RunAllTests_CrucialSetupWizardInstaller()
+Func _RunAllTests_CrucialWizInstaller()
 
 	Local $bWriteSummary = False
 	Local $bAllPassed = True
 
-	$bAllPassed = _RunCrucialSetupWizardInstallerTests($bWriteSummary) And $bAllPassed
-	$bAllPassed = _RunCrucialSetupWizardUninstallerTests($bWriteSummary) And $bAllPassed
+	$bAllPassed = _RunCrucialWizInstallerTests($bWriteSummary) And $bAllPassed
+	$bAllPassed = _RunCrucialWizUninstallerTests($bWriteSummary) And $bAllPassed
 
 	_TestFmkSeparator(80, "=")
 	__TestFmk_InfoConsoleWrite("+ Summary")
@@ -25,4 +25,4 @@ Func _RunAllTests_CrucialSetupWizardInstaller()
 
 	Return $bAllPassed
 EndFunc
-Exit Not _RunAllTests_CrucialSetupWizardInstaller()
+Exit Not _RunAllTests_CrucialWizInstaller()

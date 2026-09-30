@@ -5,7 +5,7 @@
 #include "..\..\src\core\CrucialSetupWizard.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: CrucialSetupWizardPageTemplatesTests.au3
+; Title .........: CrucialWizPageTemplatesTests.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -15,7 +15,7 @@
 ;                  Tests invalid GUI/config guards, control creation, event handler registration,
 ;                  and page index storage in the wizard map.
 ; ===============================================================================================================================
-Local $sScriptName = "CrucialSetupWizardPageTemplatesTests.au3"
+Local $sScriptName = "CrucialWizPageTemplatesTests.au3"
 
 ; ===============================================================================================================================
 ; Helpers
@@ -952,14 +952,14 @@ EndFunc
 ; ===============================================================================================================================
 ; Run tests
 ; ===============================================================================================================================
-Func __RunCrucialSetupWizardPageTemplatesTest_ValidateTemplateArgs(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplatesTest_ValidateTemplateArgs(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestValidateTemplateArgs_InvalidGUI, $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestValidateTemplateArgs_InvalidCfg, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestValidateTemplateArgs_Valid, 		$bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplatesTest_SetIntroPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplatesTest_SetIntroPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestSetIntroPage_InvalidGUI,    $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetIntroPage_InvalidCfg,    $bAllPassed)
@@ -967,7 +967,7 @@ Func __RunCrucialSetupWizardPageTemplatesTest_SetIntroPage(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestSetIntroPage_WithReqParams, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplatesTest_SetPathPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplatesTest_SetPathPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestSetPathPage_InvalidGUI,    $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetPathPage_InvalidCfg,    $bAllPassed)
@@ -975,7 +975,7 @@ Func __RunCrucialSetupWizardPageTemplatesTest_SetPathPage(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestSetPathPage_WithReqParams, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplatesTest_SetReadyPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplatesTest_SetReadyPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestSetReadyPage_InvalidGUI,    $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestSetReadyPage_InvalidCfg,    $bAllPassed)
@@ -983,7 +983,7 @@ Func __RunCrucialSetupWizardPageTemplatesTest_SetReadyPage(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestSetReadyPage_WithReqParams, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplatesTest_SetProgressPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplatesTest_SetProgressPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestSetProgressPage_InvalidGUI, 	  $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetProgressPage_InvalidCfg, 	  $bAllPassed)
@@ -992,7 +992,7 @@ Func __RunCrucialSetupWizardPageTemplatesTest_SetProgressPage(ByRef $bAllPassed)
 
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplatesTest_SetFinishPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplatesTest_SetFinishPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestSetFinishPage_InvalidGUI, 	$bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetFinishPage_InvalidCfg, 	$bAllPassed)
@@ -1000,55 +1000,55 @@ Func __RunCrucialSetupWizardPageTemplatesTest_SetFinishPage(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestSetFinishPage_WithReqParams, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplatesTest_AddIntroPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplatesTest_AddIntroPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestAddIntroPage_InvalidWizard,          $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestAddIntroPage_SetIntroPageFails,      $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestAddIntroPage_AddsPageAndStoresIndex, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplatesTest_AddPathPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplatesTest_AddPathPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestAddPathPage_InvalidWizard,          $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestAddPathPage_SetPathPageFails,       $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestAddPathPage_AddsPageAndStoresIndex, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplatesTest_AddReadyPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplatesTest_AddReadyPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestAddReadyPage_InvalidWizard,          $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestAddReadyPage_SetReadyPageFails,      $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestAddReadyPage_AddsPageAndStoresIndex, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplatesTest_AddProgressPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplatesTest_AddProgressPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestAddProgressPage_InvalidWizard,          $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestAddProgressPage_SetProgressPageFails,   $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestAddProgressPage_AddsPageAndStoresIndex, $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardPageTemplatesTest_AddFinishPage(ByRef $bAllPassed)
+Func __RunCrucialWizPageTemplatesTest_AddFinishPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestAddFinishPage_InvalidWizard,          $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestAddFinishPage_SetFinishPageFails,     $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestAddFinishPage_AddsPageAndStoresIndex, $bAllPassed)
 EndFunc
 
-Func _RunCrucialSetupWizardPageTemplatesTests($bWriteSummary = True)
+Func _RunCrucialWizPageTemplatesTests($bWriteSummary = True)
     Local $bAllPassed = True
-	__RunCrucialSetupWizardPageTemplatesTest_ValidateTemplateArgs($bAllPassed)
-    __RunCrucialSetupWizardPageTemplatesTest_SetIntroPage($bAllPassed)
-    __RunCrucialSetupWizardPageTemplatesTest_SetPathPage($bAllPassed)
-    __RunCrucialSetupWizardPageTemplatesTest_SetReadyPage($bAllPassed)
-    __RunCrucialSetupWizardPageTemplatesTest_SetProgressPage($bAllPassed)
-    __RunCrucialSetupWizardPageTemplatesTest_SetFinishPage($bAllPassed)
-    __RunCrucialSetupWizardPageTemplatesTest_AddIntroPage($bAllPassed)
-    __RunCrucialSetupWizardPageTemplatesTest_AddPathPage($bAllPassed)
-    __RunCrucialSetupWizardPageTemplatesTest_AddReadyPage($bAllPassed)
-    __RunCrucialSetupWizardPageTemplatesTest_AddProgressPage($bAllPassed)
-    __RunCrucialSetupWizardPageTemplatesTest_AddFinishPage($bAllPassed)
+	__RunCrucialWizPageTemplatesTest_ValidateTemplateArgs($bAllPassed)
+    __RunCrucialWizPageTemplatesTest_SetIntroPage($bAllPassed)
+    __RunCrucialWizPageTemplatesTest_SetPathPage($bAllPassed)
+    __RunCrucialWizPageTemplatesTest_SetReadyPage($bAllPassed)
+    __RunCrucialWizPageTemplatesTest_SetProgressPage($bAllPassed)
+    __RunCrucialWizPageTemplatesTest_SetFinishPage($bAllPassed)
+    __RunCrucialWizPageTemplatesTest_AddIntroPage($bAllPassed)
+    __RunCrucialWizPageTemplatesTest_AddPathPage($bAllPassed)
+    __RunCrucialWizPageTemplatesTest_AddReadyPage($bAllPassed)
+    __RunCrucialWizPageTemplatesTest_AddProgressPage($bAllPassed)
+    __RunCrucialWizPageTemplatesTest_AddFinishPage($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
-_TestFmkRunAllTests(_RunCrucialSetupWizardPageTemplatesTests, $sScriptName)
+_TestFmkRunAllTests(_RunCrucialWizPageTemplatesTests, $sScriptName)

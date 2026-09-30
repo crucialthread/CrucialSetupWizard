@@ -5,7 +5,7 @@
 #include "..\..\src\core\CrucialSetupWizard.au3"
 
 ; #INDEX# =======================================================================================================================
-; Title .........: CrucialSetupWizardMainTests.au3
+; Title .........: CrucialWizMainTests.au3
 ; Version .......: 0.0.1
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
@@ -13,7 +13,7 @@
 ; Description ...: Unit tests for the Wizard Helpers and Wizard Init regions of CrucialSetup.au3.
 ;                  Tests wizard validation, cancel confirmation, and wizard initialization.
 ; ===============================================================================================================================
-Local $sScriptName = "CrucialSetupWizardMainTests.au3"
+Local $sScriptName = "CrucialWizMainTests.au3"
 
 ; ===============================================================================================================================
 ; Helpers
@@ -542,7 +542,7 @@ EndFunc
 ; ===============================================================================================================================
 ; Run 8tests
 ; ===============================================================================================================================
-Func __RunCrucialSetupWizardTest_IsValidWizardHeader(ByRef $bAllPassed)
+Func __RunCrucialWizTest_IsValidWizardHeader(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestIsValidWizardHeader_ValidHeader,             $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestIsValidWizardHeader_NotAMap,                 $bAllPassed)
@@ -552,7 +552,7 @@ Func __RunCrucialSetupWizardTest_IsValidWizardHeader(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestIsValidWizardHeader_MissingIdSeparator,      $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardTest_IsValidWizardButtons(ByRef $bAllPassed)
+Func __RunCrucialWizTest_IsValidWizardButtons(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestIsValidWizardButtons_ValidButtons,           $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestIsValidWizardButtons_NotAMap,                $bAllPassed)
@@ -563,7 +563,7 @@ Func __RunCrucialSetupWizardTest_IsValidWizardButtons(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestIsValidWizardButtons_MissingBtnBtnNext,      $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardTest_IsValidWizard(ByRef $bAllPassed)
+Func __RunCrucialWizTest_IsValidWizard(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestIsValidWizard_ValidWizard,                   $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestIsValidWizard_NotAMap,                       $bAllPassed)
@@ -576,14 +576,14 @@ Func __RunCrucialSetupWizardTest_IsValidWizard(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestIsValidWizard_InvalidHWin,                   $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardTest_IsWizardReady(ByRef $bAllPassed)
+Func __RunCrucialWizTest_IsWizardReady(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestIsWizardReady_WithPages,                     $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestIsWizardReady_NoPages,                       $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestIsWizardReady_InvalidWizard,                 $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardTest_MsgCloseInstall(ByRef $bAllPassed)
+Func __RunCrucialWizTest_MsgCloseInstall(ByRef $bAllPassed)
     _TestFmkSeparator()
 	$bAllPassed = _TestFmkRun(_TestMsgCloseInstall_ShowMsgOnlyWhenAllowed,      $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestMsgCloseInstall_UnallowedPageDoesNothing,    $bAllPassed)
@@ -591,30 +591,30 @@ Func __RunCrucialSetupWizardTest_MsgCloseInstall(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestMsgCloseInstall_Declined,          		    $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardTest_NewWizard(ByRef $bAllPassed)
+Func __RunCrucialWizTest_NewWizard(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestNewWizard_ReturnsValidWizard,                $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestNewWizard_InvalidConfig,                     $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestNewWizard_StoresTitle,                       $bAllPassed)
 EndFunc
 
-Func __RunCrucialSetupWizardTest_GetWizardPage(ByRef $bAllPassed)
+Func __RunCrucialWizTest_GetWizardPage(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestGetWizardPage_Found,                         $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestGetWizardPage_NotFound,                      $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestGetWizardPage_InvalidWizard,                 $bAllPassed)
 EndFunc
 
-Func _RunCrucialSetupWizardMainTests($bWriteSummary = True)
+Func _RunCrucialWizMainTests($bWriteSummary = True)
     Local $bAllPassed = True
-	__RunCrucialSetupWizardTest_IsValidWizardHeader($bAllPassed)
-	__RunCrucialSetupWizardTest_IsValidWizardButtons($bAllPassed)
-	__RunCrucialSetupWizardTest_IsValidWizard($bAllPassed)
-	__RunCrucialSetupWizardTest_IsWizardReady($bAllPassed)
-	__RunCrucialSetupWizardTest_MsgCloseInstall($bAllPassed)
-	__RunCrucialSetupWizardTest_NewWizard($bAllPassed)
-	__RunCrucialSetupWizardTest_GetWizardPage($bAllPassed)
+	__RunCrucialWizTest_IsValidWizardHeader($bAllPassed)
+	__RunCrucialWizTest_IsValidWizardButtons($bAllPassed)
+	__RunCrucialWizTest_IsValidWizard($bAllPassed)
+	__RunCrucialWizTest_IsWizardReady($bAllPassed)
+	__RunCrucialWizTest_MsgCloseInstall($bAllPassed)
+	__RunCrucialWizTest_NewWizard($bAllPassed)
+	__RunCrucialWizTest_GetWizardPage($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed
 EndFunc
-_TestFmkRunAllTests(_RunCrucialSetupWizardMainTests, $sScriptName)
+_TestFmkRunAllTests(_RunCrucialWizMainTests, $sScriptName)

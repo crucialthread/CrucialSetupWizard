@@ -30,6 +30,19 @@ Func _TestNewWndCfg_DefaultValues()
     _TestFmkAssert($mCfg.iContentWidth = $CONTENT_W,     "ContentWidth is default", $mCfg.iContentWidth, $CONTENT_W)
 EndFunc
 
+Func _TestNewWndCfg_KeywordDefault()
+    _TestFmkHeader("Test: _NewWndCfg() - returns map with default values passing keyword Default")
+
+    Local $mCfg = _NewWndCfg(Default, Default, Default, Default, Default, Default)
+
+    _TestFmkAssert($mCfg.iWidth        = $WIN_WIDTH,     "Width is default",        $mCfg.iWidth,        $WIN_WIDTH)
+    _TestFmkAssert($mCfg.iHeight       = $WIN_HEIGHT,    "Height is default",       $mCfg.iHeight,       $WIN_HEIGHT)
+    _TestFmkAssert($mCfg.iFooterSepY   = $FOOTER_SEP_Y,  "FooterSepY is default",   $mCfg.iFooterSepY,   $FOOTER_SEP_Y)
+    _TestFmkAssert($mCfg.iHeaderHeight = $HEADER_H,      "HeaderHeight is default", $mCfg.iHeaderHeight, $HEADER_H)
+    _TestFmkAssert($mCfg.iContentTop   = $CONTENT_TOP,   "ContentTop is default",   $mCfg.iContentTop,   $CONTENT_TOP)
+    _TestFmkAssert($mCfg.iContentWidth = $CONTENT_W,     "ContentWidth is default", $mCfg.iContentWidth, $CONTENT_W)
+EndFunc
+
 Func _TestNewWndCfg_CustomValues()
     _TestFmkHeader("Test: _NewWndCfg() - returns map with custom values")
 
@@ -43,6 +56,54 @@ Func _TestNewWndCfg_CustomValues()
     _TestFmkAssert($mCfg.iContentWidth = 560, "ContentWidth is custom", $mCfg.iContentWidth, 560)
 EndFunc
 
+Func _TestNewWndCfg_FooterSepYAdjustsWithHeight()
+    _TestFmkHeader("Test: _NewWndCfg() - FooterSepY recalculates against a custom Height when left default")
+
+    Local $mCfg = _NewWndCfg(Default, 500)
+
+    _TestFmkAssert($mCfg.iFooterSepY = 500 - $FOOTER_SEP_Y_OFFSET, "FooterSepY adjusts with Height", $mCfg.iFooterSepY, 500 - $FOOTER_SEP_Y_OFFSET)
+EndFunc
+
+Func _TestNewWndCfg_ContentWidthAdjustsWithWidth()
+    _TestFmkHeader("Test: _NewWndCfg() - ContentWidth recalculates against a custom Width when left default")
+
+    Local $mCfg = _NewWndCfg(700)
+
+    _TestFmkAssert($mCfg.iContentWidth = 700 - $CONTENT_W_OFFSET, "ContentWidth adjusts with Width", $mCfg.iContentWidth, 700 - $CONTENT_W_OFFSET)
+EndFunc
+
+Func _TestNewWndCfg_ContentTopAdjustsWithHeaderHeight()
+    _TestFmkHeader("Test: _NewWndCfg() - ContentTop recalculates against a custom HeaderHeight when left default")
+
+    Local $mCfg = _NewWndCfg(Default, Default, Default, 100)
+
+    _TestFmkAssert($mCfg.iContentTop = 100 + $CONTENT_TOP_OFFSET, "ContentTop adjusts with HeaderHeight", $mCfg.iContentTop, 100 + $CONTENT_TOP_OFFSET)
+EndFunc
+
+Func _TestNewWndCfg_FooterSepYExplicitOverrideWinsOverHeight()
+    _TestFmkHeader("Test: _NewWndCfg() - explicit FooterSepY is not recalculated even with a custom Height")
+
+    Local $mCfg = _NewWndCfg(Default, 500, 999)
+
+    _TestFmkAssert($mCfg.iFooterSepY = 999, "Explicit FooterSepY wins over Height", $mCfg.iFooterSepY, 999)
+EndFunc
+
+Func _TestNewWndCfg_ContentWidthExplicitOverrideWinsOverWidth()
+    _TestFmkHeader("Test: _NewWndCfg() - explicit ContentWidth is not recalculated even with a custom Width")
+
+    Local $mCfg = _NewWndCfg(700, Default, Default, Default, Default, 888)
+
+    _TestFmkAssert($mCfg.iContentWidth = 888, "Explicit ContentWidth wins over Width", $mCfg.iContentWidth, 888)
+EndFunc
+
+Func _TestNewWndCfg_ContentTopExplicitOverrideWinsOverHeaderHeight()
+    _TestFmkHeader("Test: _NewWndCfg() - explicit ContentTop is not recalculated even with a custom HeaderHeight")
+
+    Local $mCfg = _NewWndCfg(Default, Default, Default, 100, 777)
+
+    _TestFmkAssert($mCfg.iContentTop = 777, "Explicit ContentTop wins over HeaderHeight", $mCfg.iContentTop, 777)
+EndFunc
+
 ; ===============================================================================================================================
 ; Tests - _NewFontCfg
 ; ===============================================================================================================================
@@ -50,6 +111,15 @@ Func _TestNewFontCfg_DefaultValues()
     _TestFmkHeader("Test: _NewFontCfg() - returns map with default values")
 
     Local $mCfg = _NewFontCfg()
+
+    _TestFmkAssert($mCfg.sName = $FONT_NAME, "Name is default", $mCfg.sName, $FONT_NAME)
+    _TestFmkAssert($mCfg.iSize = $FONT_SIZE, "Size is default", $mCfg.iSize, $FONT_SIZE)
+EndFunc
+
+Func _TestNewFontCfg_KeywordDefault()
+    _TestFmkHeader("Test: _NewFontCfg() - returns map with default values passing keyword Default")
+
+    Local $mCfg = _NewFontCfg(Default, Default)
 
     _TestFmkAssert($mCfg.sName = $FONT_NAME, "Name is default", $mCfg.sName, $FONT_NAME)
     _TestFmkAssert($mCfg.iSize = $FONT_SIZE, "Size is default", $mCfg.iSize, $FONT_SIZE)
@@ -78,6 +148,17 @@ Func _TestNewBtnDim_DefaultValues()
     _TestFmkAssert($mCfg.iYaxis  = $BTN_Y,   "Y is default",      $mCfg.iYaxis,  $BTN_Y)
 EndFunc
 
+Func _TestNewBtnDim_KeywordDefault()
+    _TestFmkHeader("Test: _NewBtnDim() - returns map with default values passing keyword Default")
+
+    Local $mCfg = _NewBtnDim(Default, Default, Default, Default)
+
+    _TestFmkAssert($mCfg.iWidth  = $BTN_W,   "Width is default",  $mCfg.iWidth,  $BTN_W)
+    _TestFmkAssert($mCfg.iHeight = $BTN_H,   "Height is default", $mCfg.iHeight, $BTN_H)
+    _TestFmkAssert($mCfg.iGap    = $BTN_GAP, "Gap is default",    $mCfg.iGap,    $BTN_GAP)
+    _TestFmkAssert($mCfg.iYaxis  = $BTN_Y,   "Y is default",      $mCfg.iYaxis,  $BTN_Y)
+EndFunc
+
 Func _TestNewBtnDim_CustomValues()
     _TestFmkHeader("Test: _NewBtnDim() - returns map with custom values")
 
@@ -96,6 +177,18 @@ Func _TestNewBtnCaptions_DefaultValues()
     _TestFmkHeader("Test: _NewBtnCaptions() - returns map with default values")
 
     Local $mCfg = _NewBtnCaptions()
+
+    _TestFmkAssert($mCfg.sNext   = $BTN_CAPTION_NEXT,   "Next is default",   $mCfg.sNext,   $BTN_CAPTION_NEXT)
+    _TestFmkAssert($mCfg.sBack   = $BTN_CAPTION_BACK,   "Back is default",   $mCfg.sBack,   $BTN_CAPTION_BACK)
+    _TestFmkAssert($mCfg.sCancel = $BTN_CAPTION_CANCEL, "Cancel is default", $mCfg.sCancel, $BTN_CAPTION_CANCEL)
+    _TestFmkAssert($mCfg.sFinish = $BTN_CAPTION_FINISH, "Finish is default", $mCfg.sFinish, $BTN_CAPTION_FINISH)
+    _TestFmkAssert($mCfg.sApply  = $BTN_CAPTION_APPLY,  "Apply is default",  $mCfg.sApply,  $BTN_CAPTION_APPLY)
+EndFunc
+
+Func _TestNewBtnCaptions_KeywordDefault()
+    _TestFmkHeader("Test: _NewBtnCaptions() - returns map with default values passing keyword Default")
+
+    Local $mCfg = _NewBtnCaptions(Default, Default, Default, Default, Default)
 
     _TestFmkAssert($mCfg.sNext   = $BTN_CAPTION_NEXT,   "Next is default",   $mCfg.sNext,   $BTN_CAPTION_NEXT)
     _TestFmkAssert($mCfg.sBack   = $BTN_CAPTION_BACK,   "Back is default",   $mCfg.sBack,   $BTN_CAPTION_BACK)
@@ -159,6 +252,7 @@ Func _TestNewInstallerCfg_DefaultValues()
     _TestFmkAssert($mCfg.sFontName    = $FONT_NAME,          "sFontName is default",    $mCfg.sFontName,    $FONT_NAME)
     _TestFmkAssert($mCfg.iFontSize    = $FONT_SIZE,          "iFontSize is default",    $mCfg.iFontSize,    $FONT_SIZE)
     _TestFmkAssert($mCfg.iBtnWidth    = $BTN_W,              "iBtnWidth is default",    $mCfg.iBtnWidth,    $BTN_W)
+    _TestFmkAssert($mCfg.iBtnY        = $BTN_Y,              "iBtnY is default",        $mCfg.iBtnY,        $BTN_Y)
     _TestFmkAssert($mCfg.sBtnCaptNext = $BTN_CAPTION_NEXT,   "sBtnCaptNext is default", $mCfg.sBtnCaptNext, $BTN_CAPTION_NEXT)
 EndFunc
 
@@ -184,6 +278,25 @@ Func _TestNewInstallerCfg_FallsBackOnInvalidBtn()
     Local $mCfg = _NewInstallerCfg(_NewWndCfg(), _NewFontCfg(), "Invalid Btn Configs")
 
     _TestFmkAssert($mCfg.iBtnWidth = $BTN_W, "BtnWidth falls back", $mCfg.iBtnWidth, $BTN_W)
+EndFunc
+
+Func _TestNewInstallerCfg_BtnYAdjustsWithWndHeight()
+    _TestFmkHeader("Test: _NewInstallerCfg() - BtnY recalculates against a custom window height when left default")
+
+    Local $mWndCfg = _NewWndCfg(Default, 500)
+    Local $mCfg = _NewInstallerCfg($mWndCfg)
+
+    _TestFmkAssert($mCfg.iBtnY = 500 - $BTN_Y_OFFSET, "BtnY adjusts with window height", $mCfg.iBtnY, 500 - $BTN_Y_OFFSET)
+EndFunc
+
+Func _TestNewInstallerCfg_BtnYExplicitOverrideWinsOverWndHeight()
+    _TestFmkHeader("Test: _NewInstallerCfg() - explicit BtnY is not recalculated even with a custom window height")
+
+    Local $mWndCfg = _NewWndCfg(Default, 500)
+    Local $mBtnCfg = _NewBtnCfg(_NewBtnDim(Default, Default, Default, 999))
+    Local $mCfg = _NewInstallerCfg($mWndCfg, Default, $mBtnCfg)
+
+    _TestFmkAssert($mCfg.iBtnY = 999, "Explicit BtnY wins over window height", $mCfg.iBtnY, 999)
 EndFunc
 
 ; ===============================================================================================================================
@@ -229,24 +342,34 @@ EndFunc
 Func __RunCrucialWizConfigTest_NewWndCfg(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestNewWndCfg_DefaultValues, $bAllPassed)
+	$bAllPassed = _TestFmkRun(_TestNewWndCfg_KeywordDefault, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewWndCfg_CustomValues,  $bAllPassed)
+	$bAllPassed = _TestFmkRun(_TestNewWndCfg_FooterSepYAdjustsWithHeight, $bAllPassed)
+	$bAllPassed = _TestFmkRun(_TestNewWndCfg_ContentWidthAdjustsWithWidth, $bAllPassed)
+	$bAllPassed = _TestFmkRun(_TestNewWndCfg_ContentTopAdjustsWithHeaderHeight, $bAllPassed)
+	$bAllPassed = _TestFmkRun(_TestNewWndCfg_FooterSepYExplicitOverrideWinsOverHeight, $bAllPassed)
+	$bAllPassed = _TestFmkRun(_TestNewWndCfg_ContentWidthExplicitOverrideWinsOverWidth, $bAllPassed)
+	$bAllPassed = _TestFmkRun(_TestNewWndCfg_ContentTopExplicitOverrideWinsOverHeaderHeight, $bAllPassed)
 EndFunc
 
 Func __RunCrucialWizConfigTest_NewFontCfg(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestNewFontCfg_DefaultValues, $bAllPassed)
+	$bAllPassed = _TestFmkRun(_TestNewFontCfg_KeywordDefault, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewFontCfg_CustomValues,  $bAllPassed)
 EndFunc
 
 Func __RunCrucialWizConfigTest_NewBtnDim(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestNewBtnDim_DefaultValues, $bAllPassed)
+	$bAllPassed = _TestFmkRun(_TestNewBtnDim_KeywordDefault, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewBtnDim_CustomValues,  $bAllPassed)
 EndFunc
 
 Func __RunCrucialWizConfigTest_NewBtnCaptions(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestNewBtnCaptions_DefaultValues, $bAllPassed)
+	$bAllPassed = _TestFmkRun(_TestNewBtnCaptions_KeywordDefault, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewBtnCaptions_CustomValues,  $bAllPassed)
 EndFunc
 
@@ -263,6 +386,8 @@ Func __RunCrucialWizConfigTest_NewInstallerCfg(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewInstallerCfg_FallsBackOnInvalidWnd,  $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewInstallerCfg_FallsBackOnInvalidFont, $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestNewInstallerCfg_FallsBackOnInvalidBtn,  $bAllPassed)
+	$bAllPassed = _TestFmkRun(_TestNewInstallerCfg_BtnYAdjustsWithWndHeight, $bAllPassed)
+	$bAllPassed = _TestFmkRun(_TestNewInstallerCfg_BtnYExplicitOverrideWinsOverWndHeight, $bAllPassed)
 EndFunc
 
 Func __RunCrucialWizConfigTest_IsValidInstallerCfg(ByRef $bAllPassed)

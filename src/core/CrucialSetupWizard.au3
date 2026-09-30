@@ -434,11 +434,20 @@ EndFunc
 ; recalculated to match unless they were themselves explicitly overridden.
 Func _NewWndCfg($iWidth = $WIN_WIDTH, $iHeight = $WIN_HEIGHT, $iFooterSepY = $FOOTER_SEP_Y, _
 				$iHeaderHeight = $HEADER_H, $iContentTop = $CONTENT_TOP, $iContentWidth = $CONTENT_W)
+
+	; Default keyword fallback
+	$iWidth 	   = $iWidth == Default ? $WIN_WIDTH : Int($iWidth)
+	$iHeight 	   = $iHeight == Default ? $WIN_HEIGHT : Int($iHeight)
+	$iFooterSepY   = $iFooterSepY == Default ? $FOOTER_SEP_Y : Int($iFooterSepY)
+	$iHeaderHeight = $iHeaderHeight == Default ? $HEADER_H : Int($iHeaderHeight)
+	$iContentTop   = $iContentTop == Default ? $CONTENT_TOP : Int($iContentTop)
+	$iContentWidth = $iContentWidth == Default ? $CONTENT_W : Int($iContentWidth)
+
 	Local $mWndCfg[]
-	$mWndCfg.iWidth	       = Int($iWidth)
-	$mWndCfg.iHeight 	   = Int($iHeight)
+	$mWndCfg.iWidth	       = $iWidth
+	$mWndCfg.iHeight 	   = $iHeight
 	$mWndCfg.iFooterSepY   = __FooterSepYDefault($iFooterSepY, $iHeight)
-	$mWndCfg.iHeaderHeight = Int($iHeaderHeight)
+	$mWndCfg.iHeaderHeight = $iHeaderHeight
 	$mWndCfg.iContentTop   = __ContentTopDefault($iContentTop, $iHeaderHeight)
 	$mWndCfg.iContentWidth = __ContentWidthDefault($iContentWidth, $iWidth)
 	Return $mWndCfg
@@ -449,8 +458,8 @@ EndFunc
 ; All parameters have defaults matching the library constants.
 Func _NewFontCfg($sName = $FONT_NAME, $iSize = $FONT_SIZE)
 	Local $mFontCfg[]
-	$mFontCfg.sName = String($sName)
-	$mFontCfg.iSize = Int($iSize)
+	$mFontCfg.sName = $sName == Default ? $FONT_NAME : String($sName)
+	$mFontCfg.iSize = $iSize == Default ? $FONT_SIZE : Int($iSize)
 	Return $mFontCfg
 EndFunc
 
@@ -459,10 +468,10 @@ EndFunc
 ; All parameters have defaults matching the library constants.
 Func _NewBtnDim($iWidth = $BTN_W, $iHeight = $BTN_H, $iGap = $BTN_GAP, $iYaxis = $BTN_Y)
 	Local $mBtnDim[]
-	$mBtnDim.iWidth  = Int($iWidth)
-	$mBtnDim.iHeight = Int($iHeight)
-	$mBtnDim.iGap    = Int($iGap)
-	$mBtnDim.iYaxis  = Int($iYaxis)
+	$mBtnDim.iWidth  = $iWidth == Default ? $BTN_W : Int($iWidth)
+	$mBtnDim.iHeight = $iHeight == Default ? $BTN_H : Int($iHeight)
+	$mBtnDim.iGap    = $iGap == Default ? $BTN_GAP : Int($iGap)
+	$mBtnDim.iYaxis  = $iYaxis == Default ? $BTN_Y : Int($iYaxis)
 	Return $mBtnDim
 EndFunc
 
@@ -473,11 +482,11 @@ EndFunc
 Func _NewBtnCaptions($sNext = $BTN_CAPTION_NEXT, $sBack = $BTN_CAPTION_BACK, $sCancel = $BTN_CAPTION_CANCEL, _
 					 $sFinish = $BTN_CAPTION_FINISH, $sApply = $BTN_CAPTION_APPLY)
 	Local $mBtnCapt[]
-	$mBtnCapt.sNext   = String($sNext)
-	$mBtnCapt.sBack   = String($sBack)
-	$mBtnCapt.sCancel = String($sCancel)
-	$mBtnCapt.sFinish = String($sFinish)
-	$mBtnCapt.sApply  = String($sApply)
+	$mBtnCapt.sNext   = $sNext == Default ? $BTN_CAPTION_NEXT : String($sNext)
+	$mBtnCapt.sBack   = $sBack == Default ? $BTN_CAPTION_BACK : String($sBack)
+	$mBtnCapt.sCancel = $sCancel == Default ? $BTN_CAPTION_CANCEL : String($sCancel)
+	$mBtnCapt.sFinish = $sFinish == Default ? $BTN_CAPTION_FINISH : String($sFinish)
+	$mBtnCapt.sApply  = $sApply == Default ? $BTN_CAPTION_APPLY : String($sApply)
 	Return $mBtnCapt
 EndFunc
 

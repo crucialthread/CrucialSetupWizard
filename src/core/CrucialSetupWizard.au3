@@ -6,7 +6,7 @@
 #include <ButtonConstants.au3>
 #include <ColorConstants.au3>
 #include <Array.au3>
-#include "CrucialTestableInclude.au3"
+#include "CrucialWizTstblInclude.au3"
 
 ;#INDEX# ========================================================================================================================
 ; Title .........: Crucial Setup Wizard - CrucialSetupWizard.au3
@@ -100,6 +100,10 @@
 ; __DebugErrorInfo
 ;
 ;[CONFIGS]
+; __BtnYDefault
+; __ContentWidthDefault
+; __FooterSepYDefault
+; __ContentTopDefault
 ; __IsValidInstallerCfg
 ;
 ;[PAGE HELPERS]
@@ -192,13 +196,17 @@ Global Const $FONT_SIZE     = 11
 Global Const $BTN_W         = 130
 Global Const $BTN_H         = 34
 Global Const $BTN_GAP       = 10
-Global Const $BTN_Y         = $WIN_HEIGHT - 48
+Global Const $BTN_Y_OFFSET	= 48
+Global Const $BTN_Y         = $WIN_HEIGHT - $BTN_Y_OFFSET
 
 ; Default Layout metrics
-Global Const $FOOTER_SEP_Y  = $WIN_HEIGHT - 58
-Global Const $HEADER_H      = 70
-Global Const $CONTENT_TOP   = $HEADER_H + 10
-Global Const $CONTENT_W     = $WIN_WIDTH - 40
+Global Const $FOOTER_SEP_Y_OFFSET = 58
+Global Const $CONTENT_TOP_OFFSET  = 10
+Global Const $CONTENT_W_OFFSET 	  = 40
+Global Const $FOOTER_SEP_Y  	  = $WIN_HEIGHT - $FOOTER_SEP_Y_OFFSET
+Global Const $HEADER_H      	  = 70
+Global Const $CONTENT_TOP   	  = $HEADER_H + $CONTENT_TOP_OFFSET
+Global Const $CONTENT_W     	  = $WIN_WIDTH - $CONTENT_W_OFFSET
 
 ; Default button captions - overridable via _NewBtnCaptions()
 Global Const $BTN_CAPTION_NEXT    = "Next >"
@@ -332,6 +340,48 @@ EndFunc
 ;================================================================================================================================
 
 ; #INTERNAL_USE_ONLY# ===========================================================================================================
+; Resolves the button row's Y position, adjusting it when the window height is not the standard height.
+; $iYaxis     - button Y position to resolve
+; $iWndHeight - window height to resolve it against
+Func __BtnYDefault($iYaxis, $iWndHeight)
+	If Int($iYaxis) <> $BTN_Y Then Return Int($iYaxis)
+	If Int($iWndHeight) = $WIN_HEIGHT Then Return Int($iYaxis)
+	Return Int($iWndHeight) - $BTN_Y_OFFSET
+EndFunc
+
+; #INTERNAL_USE_ONLY# ===========================================================================================================
+; Resolves the content area's width, adjusting it when the window width is not the standard width.
+; $iContentWidth - content width to resolve
+; $iWndWidth     - window width to resolve it against
+Func __ContentWidthDefault($iContentWidth, $iWndWidth)
+	If Int($iContentWidth) <> $CONTENT_W Then Return Int($iContentWidth)
+	If Int($iWndWidth) = $WIN_WIDTH Then Return Int($iContentWidth)
+	Return Int($iWndWidth) - $CONTENT_W_OFFSET
+EndFunc
+
+; #INTERNAL_USE_ONLY# ===========================================================================================================
+; Resolves the footer separator's Y position, adjusting it when the window height is not the
+; standard height.
+; $iFooterSepY - footer separator Y position to resolve
+; $iWndHeight  - window height to resolve it against
+Func __FooterSepYDefault($iFooterSepY, $iWndHeight)
+	If Int($iFooterSepY) <> $FOOTER_SEP_Y Then Return Int($iFooterSepY)
+	If Int($iWndHeight) = $WIN_HEIGHT Then Return Int($iFooterSepY)
+	Return Int($iWndHeight) - $FOOTER_SEP_Y_OFFSET
+EndFunc
+
+; #INTERNAL_USE_ONLY# ===========================================================================================================
+; Resolves the content area's top position, adjusting it when the header height is not the
+; standard height.
+; $iContentTop   - content top position to resolve
+; $iHeaderHeight - header height to resolve it against
+Func __ContentTopDefault($iContentTop, $iHeaderHeight)
+	If Int($iContentTop) <> $CONTENT_TOP Then Return Int($iContentTop)
+	If Int($iHeaderHeight) = $HEADER_H Then Return Int($iContentTop)
+	Return Int($iHeaderHeight) + $CONTENT_TOP_OFFSET
+EndFunc
+
+; #INTERNAL_USE_ONLY# ===========================================================================================================
 ; Returns True if the given config map contains all required keys with valid types.
 ; Used as a guard at the start of functions that depend on a fully built config.
 Func __IsValidInstallerCfg(Const ByRef $mCfg)
@@ -379,16 +429,18 @@ EndFunc
 
 ; #FUNCTION# ====================================================================================================================
 ; Creates a window dimension config map with layout metrics.
-; All parameters have defaults matching the library constants.
+; All parameters have defaults matching the library constants. When a non-default $iHeight,
+; $iWidth or $iHeaderHeight is passed, $iFooterSepY, $iContentWidth and $iContentTop are
+; recalculated to match unless they were themselves explicitly overridden.
 Func _NewWndCfg($iWidth = $WIN_WIDTH, $iHeight = $WIN_HEIGHT, $iFooterSepY = $FOOTER_SEP_Y, _
 				$iHeaderHeight = $HEADER_H, $iContentTop = $CONTENT_TOP, $iContentWidth = $CONTENT_W)
 	Local $mWndCfg[]
 	$mWndCfg.iWidth	       = Int($iWidth)
 	$mWndCfg.iHeight 	   = Int($iHeight)
-	$mWndCfg.iFooterSepY   = Int($iFooterSepY)
+	$mWndCfg.iFooterSepY   = __FooterSepYDefault($iFooterSepY, $iHeight)
 	$mWndCfg.iHeaderHeight = Int($iHeaderHeight)
-	$mWndCfg.iContentTop   = Int($iContentTop)
-	$mWndCfg.iContentWidth = Int($iContentWidth)
+	$mWndCfg.iContentTop   = __ContentTopDefault($iContentTop, $iHeaderHeight)
+	$mWndCfg.iContentWidth = __ContentWidthDefault($iContentWidth, $iWidth)
 	Return $mWndCfg
 EndFunc
 
@@ -446,6 +498,8 @@ EndFunc
 ; Creates a flat installer config map by combining window, font and button configs.
 ; This is the single config object passed throughout the wizard - all layout, font
 ; and button settings are read from it. Falls back to defaults if invalid maps provided.
+; Note...: $mBtnCfg's button Y position is recalculated against $mWndCfg's window height
+;          unless it was explicitly overridden.
 Func _NewInstallerCfg($mWndCfg = _NewWndCfg(), $mFontCfg = _NewFontCfg, $mBtnCfg = _NewBtnCfg())
 
 	If Not IsMap($mWndCfg)  Then $mWndCfg  = _NewWndCfg()
@@ -467,7 +521,8 @@ Func _NewInstallerCfg($mWndCfg = _NewWndCfg(), $mFontCfg = _NewFontCfg, $mBtnCfg
 	$mCfg.iBtnWidth   	 = $mBtnCfg.mDim.iWidth		;Global Const $BTN_W
 	$mCfg.iBtnHeight  	 = $mBtnCfg.mDim.iHeight	;Global Const $BTN_H
 	$mCfg.iBtnGap     	 = $mBtnCfg.mDim.iGap		;Global Const $BTN_GAP
-	$mCfg.iBtnY 	  	 = $mBtnCfg.mDim.iYaxis		;Global Const $BTN_Y
+	$mCfg.iBtnY 	  	 = __BtnYDefault($mBtnCfg.mDim.iYaxis, $mWndCfg.iHeight)	;Global Const $BTN_Y
+
 	$mCfg.sBtnCaptNext   = $mBtnCfg.mCapt.sNext		;Global Const $BTN_CAPTION_NEXT
 	$mCfg.sBtnCaptBack   = $mBtnCfg.mCapt.sBack		;Global Const $BTN_CAPTION_BACK
 	$mCfg.sBtnCaptCancel = $mBtnCfg.mCapt.sCancel	;Global Const $BTN_CAPTION_CANCEL

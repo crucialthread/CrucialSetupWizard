@@ -1657,6 +1657,10 @@ Func _AddIntroPage(ByRef $mWizard, Const ByRef $mCfg, $sIntroText = "", $sIntroS
 		Return SetError(@error, @extended, 0)
 	EndIf
 
+	$sIntroText 	  = $sIntroText == Default ? "" : String($sIntroText)
+	$sIntroSubHeading = $sIntroSubHeading == Default ? "" : String($sIntroSubHeading)
+	$sIntroVersion 	  = $sIntroVersion == Default ? $DEFAULT_VERSION : String($sIntroVersion)
+
 	Local $mIntroPage = _NewPage()
 
 	__SetIntroPage($mWizard.hWin, $mIntroPage, $mCfg, $sIntroText, $sIntroSubHeading, $sIntroVersion)
@@ -1684,6 +1688,10 @@ Func _AddPathPage(ByRef $mWizard, Const ByRef $mCfg, $sPath, $hUpdateSrcFunc, $s
 		Return SetError(@error, @extended, 0)
 	EndIf
 
+	$sPathLabel 	 = $sPathLabel == Default ? "Install folder:" : String($sPathLabel)
+	$sPathPageInfo 	 = $sPathPageInfo == Default ? "" : String($sPathPageInfo)
+	$sPathSubHeading = $sPathSubHeading == Default ? "" : String($sPathSubHeading)
+
 	Local $mPathPage = _NewPage()
 
 	__SetPathPage($mWizard.hWin, $mPathPage, $mCfg, $sPath, $hUpdateSrcFunc, $sPathLabel, $sPathPageInfo, $sPathSubHeading)
@@ -1709,6 +1717,9 @@ Func _AddReadyPage(ByRef $mWizard, Const ByRef $mCfg, $sReadyInfo = "", $sReadyS
 		Return SetError(@error, @extended, 0)
 	EndIf
 
+	$sReadyInfo 	  = $sReadyInfo == Default ? "" : String($sReadyInfo)
+	$sReadySubHeading = $sReadySubHeading == Default ? "" : String($sReadySubHeading)
+
 	Local $mReadyPage = _NewPage()
 
 	__SetReadyPage($mWizard.hWin, $mReadyPage, $mCfg, $sReadyInfo, $sReadySubHeading, $hUpdateReadyPageFunc)
@@ -1733,6 +1744,9 @@ Func _AddProgressPage(ByRef $mWizard, Const ByRef $mCfg, $hFunction, $sFailureMs
 		__DebugErrorInfo(_AddProgressPage, $INST_ERR_INVALID_WIZARD, 0 , 0)
 		Return SetError(@error, @extended, 0)
 	EndIf
+
+	$sFailureMsg 		 = $sFailureMsg == Default ? "Process failed" : String($sFailureMsg)
+	$sProgressSubHeading = $sProgressSubHeading == Default ? "" : String($sProgressSubHeading)
 
 	Local $mProgressPage = _NewPage()
 	Local $idBtnNext     = __GetBtnNext($mWizard)
@@ -1761,6 +1775,8 @@ Func _AddFinishPage(ByRef $mWizard, Const ByRef $mCfg, $idLblProgress, $idProgre
 		__DebugErrorInfo(_AddFinishPage, $INST_ERR_INVALID_WIZARD, 0 , 0)
 		Return SetError(@error, @extended, 0)
 	EndIf
+
+	$sFinishSubHeading = $sFinishSubHeading == Default ? "" : String($sFinishSubHeading)
 
 	Local $mFinishPage = _NewPage()
 

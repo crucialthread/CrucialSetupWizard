@@ -37,7 +37,7 @@ _NewWndCfg([$iWidth = $WIN_WIDTH [, $iHeight = $WIN_HEIGHT [, $iFooterSepY = $FO
 
 <h2>Return Value</h2>
 <table>
-<tr><td>Success</td><td>A map with keys <code>iWidth</code>, <code>iHeight</code>, <code>iFooterSepY</code>, <code>iHeaderHeight</code>, <code>iContentTop</code>, <code>iContentWidth</code>, all coerced to <code>Int()</code>.</td></tr>
+<tr><td>Success</td><td>A map with keys <code>iWidth</code>, <code>iHeight</code>, <code>iFooterSepY</code>, <code>iHeaderHeight</code>, <code>iContentTop</code>, <code>iContentWidth</code>, all coerced to <code>Int()</code>. <code>iFooterSepY</code> and <code>iContentWidth</code> are recalculated against a non-default <code>$iHeight</code>/<code>$iWidth</code> unless explicitly overridden, and likewise <code>iContentTop</code> against a non-default <code>$iHeaderHeight</code>.</td></tr>
 
 </table>
 
@@ -56,7 +56,7 @@ the rest of the layout by hand.</p>
 
 <h2>Example</h2>
 <pre>
-; Wider window, everything else default
+; Wider window - iContentWidth adjusts automatically, other dimensions stay at their defaults
 Local $mWndCfg = _NewWndCfg(640)
 Local $mCfg = _NewInstallerCfg($mWndCfg)
 

@@ -4,7 +4,7 @@
 
 ; #INDEX# =======================================================================================================================
 ; Title .........: Crucial Setup Wizard - CrucialWizUninstallerTests.au3
-; Version .......: 1.0.0
+; Version .......: 1.1.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread
@@ -433,11 +433,11 @@ Func _TestRunUninstall_ReturnsFalseOnFailure()
     _SetStubReturn("FileDelete", $_1st, 0)  ; first file delete fails - throws RemoveFileException
 
     Local $bResult = __RunUninstall(10, 11)
-	Local $sConsoleWriteReturn = _GetStubCall("ConsoleWrite", $_1st, $Param_Text)
-	Local $bPrintException = StringInStr($sConsoleWriteReturn, "RemoveFileException") ? True : False
+	Local $sStackMsg = _GetStubCall("MsgBox", $_1st, $Param_Text)
+	Local $bPrintException = StringInStr($sStackMsg, "RemoveFileException") ? True : False
 
-    _TestFmkAssert($bResult = False, 		"Returns False on failure", 					   $bResult, 		 False, $TST_WIZ_UNINSTALLER_TESTS)
-	_TestFmkAssert($bPrintException = True, "Write expected exception stack entry on console", $bPrintException, True,  $TST_WIZ_UNINSTALLER_TESTS)
+    _TestFmkAssert($bResult = False, 		"Returns False on failure", 				 $bResult, 		   False, $TST_WIZ_UNINSTALLER_TESTS)
+	_TestFmkAssert($bPrintException = True, "Display a message with expected exception", $bPrintException, True,  $TST_WIZ_UNINSTALLER_TESTS)
 EndFunc
 
 ;================================================================================================================================

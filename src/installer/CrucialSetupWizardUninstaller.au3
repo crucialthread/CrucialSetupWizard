@@ -3,14 +3,14 @@
 #AutoIt3Wrapper_Outfile_x64=..\..\.out\CrucialSetupWizardUninstaller.exe
 #AutoIt3Wrapper_Res_Comment=An AutoIt library for building installer and uninstaller GUIs
 #AutoIt3Wrapper_Res_Description=Crucial Setup Wizard Uninstaller
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.0
+#AutoIt3Wrapper_Res_Fileversion=1.1.0.0
 #AutoIt3Wrapper_Res_ProductName=Crucial Setup Wizard
-#AutoIt3Wrapper_Res_ProductVersion=1.0.0
+#AutoIt3Wrapper_Res_ProductVersion=1.1.0
 #AutoIt3Wrapper_Res_CompanyName=Crucial Thread
 #AutoIt3Wrapper_Res_LegalCopyright=MIT License
 #AutoIt3Wrapper_Res_SaveSource=y
 #AutoIt3Wrapper_Res_Language=1033
-#AutoIt3Wrapper_Add_Constants=n
+#AutoIt3Wrapper_Res_requestedExecutionLevel=requireAdministrator
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
 ; This install script requires admin but a #RequireAdmin trigger a UAC prompt at interpreted runtime, which breaks testing
@@ -19,13 +19,11 @@
 
 #include <FileConstants.au3>
 #include <File.au3>
-#include "CrucialSetupWizInstallConstants.au3"
-#include "..\core\CrucialSetupWizard.au3"
-#include "..\..\lib\TryCatch\TryCatch.au3"
+#include "CrucialSetupWizInstallShared.au3"
 
 ; #INDEX# =======================================================================================================================
 ; Title .........: Crucial Setup Wizard - CrucialSetupWizardUninstaller.au3
-; Version .......: 1.0.0
+; Version .......: 1.1.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread
@@ -52,7 +50,7 @@ If Not IsDeclared("__TFW_TEST_MODE") Then _MainUninstall()
 Func _MainUninstall()
     If Not __ReadInstallRecord() Then
 		_Tstbl_MsgBox($MB_OK + $MB_ICONERROR, $WIZ_UNINSTALLER_TITLE, _
-			"Crucial Setup Wizard installation record was not found." & @CRLF & @CRLF & _
+			$WIZ_APP_NAME & " installation record was not found." & @CRLF & @CRLF & _
 			"It may have already been uninstalled.")
         Return
     EndIf
@@ -165,6 +163,7 @@ Func __RemoveFolderIfEmpty($sFolder)
     Local $aSize = _Tstbl_DirGetSize($sFolder, $DIR_EXTENDED)
     If @error Or $aSize[1] <> 0 Then Return
 
+	FileChangeDir(@TempDir)
 	Local $iDirRemove = _Tstbl_DirRemove($sFolder)
 	If Not $iDirRemove Then
 		Local $iExCode = _ThrowException("RemoveFolderException", "Failed to remove folder: " & $sFolder, __RemoveFolderIfEmpty) Or 1
@@ -224,40 +223,40 @@ Func __RunUninstall($idStatusLabel, $idProgress)
 
 		If $bSkip then ConsoleWrite("- ### [MOCKING] function __RunUninstall ### " & @CRLF)
 
-		_ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Removing Crucial Setup Wizard files...")
+		__UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Removing " & $WIZ_APP_NAME & " files...")
         If Not $bSkip Then
 			__RemoveInstalledFile($g_sIncludePath & "\CrucialSetupWizard.au3")
 			__RemoveInstalledFile($g_sIncludePath & "\CrucialWizTstblInclude.au3")
 		EndIf
 		$iStep += 1
 
-		_ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Updating AutoIt include registry entry...")
+		__UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Updating AutoIt include registry entry...")
 		If Not $bSkip Then __RemoveIncludeRegistry()
 		$iStep += 1
 
-		_ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Removing Vendor folder if empty...")
-		If Not $bSkip Then __RemoveFolderIfEmpty($g_sIncludePath)
-		$iStep += 1
-
-		_ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Removing CrucialSetupWizard.chm...")
+		__UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Removing CrucialSetupWizard.chm...")
 		If Not $bSkip Then __RemoveInstalledFile($g_sInstallPath & "\CrucialSetupWizard.chm")
 		If Not $bSkip Then __RemoveInstalledFile($g_sInstallPath & "\CrucialSetupWizardUninstaller.exe")
 		$iStep += 1
 
-		_ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Removing CrucialSetupWizard folder if empty...")
-		If Not $bSkip Then __RemoveFolderIfEmpty($g_sInstallPath)
-		$iStep += 1
-
-		_ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Removing registry entries...")
+		__UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Removing " & $WIZ_APP_NAME & " registry entries...")
 		If Not $bSkip Then _TryWith(_NoErr() ? _Tstbl_RegDelete($REG_INSTALL_KEY) : Null)
 		If Not $bSkip Then _TryWith(_NoErr() ? _Tstbl_RegDelete($REG_UNINSTALL_KEY) : Null)
         $iStep += 1
 
-		_ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Finished!")
+		__UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Removing Vendor folder if empty...")
+		If Not $bSkip Then __RemoveFolderIfEmpty($g_sIncludePath)
+		$iStep += 1
+
+		__UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Removing CrucialSetupWizard folder if empty...")
+		If Not $bSkip Then __RemoveFolderIfEmpty($g_sInstallPath)
+		$iStep += 1
+
+		__UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Finished!")
 
 		Local $e
 		If _Catch($e) Then
-			_Tstbl_ConsoleWrite("!" & _StackTrace(_FormatStackTrace) & @CRLF)
+			_Tstbl_MsgBox($MB_OK + $MB_ICONERROR, $WIZ_APP_NAME, _StackTrace(_FormatStackTrace))
 			_EndTry()
 			Return False
 		EndIf
@@ -297,23 +296,23 @@ EndFunc
 ; ===============================================================================================================================
 Func __Uninstall()
 
-	Local $mCfg = _NewInstallerCfg()
+	Local $mCfg = _NewInstallerCfg(_NewWndCfg(638, 407))
 	$mCfg.sBtnCaptApply = "Uninstall"
 
 	Local $sUninstallerTitle = $WIZ_UNINSTALLER_TITLE
-	Local $sHeaderTitle = "Crucial Setup Wizard"
+	Local $sHeaderTitle = $WIZ_APP_NAME
 	Local $mWizard = _NewWizard($mCfg, $sUninstallerTitle, $sHeaderTitle)
 
     ; ===================================================================
     ; Page 1 - Welcome
     ; ===================================================================
-    Local $sIntroText = "This process will remove Crucial Setup Wizard from your computer." & @CRLF & @CRLF & _
+    Local $sIntroText = "This process will remove " & $WIZ_APP_NAME & " from your computer." & @CRLF & @CRLF & _
         "Current installation:" & @CRLF & @CRLF & _
         " Library:       " & $g_sIncludePath & @CRLF & _
         " Documentation: " & $g_sInstallPath & @CRLF & @CRLF & _
         "Click Next to continue or Cancel to exit."
-	Local $sIntroSubHeading = "Welcome to Crucial Setup Wizard Uninstall"
-	Local $iIntroPageId = _AddIntroPage($mWizard, $mCfg, $sIntroText, $sIntroSubHeading)
+	Local $sIntroSubHeading = "Welcome to " & $WIZ_UNINSTALLER_TITLE
+	Local $iIntroPageId = _AddIntroPage($mWizard, $mCfg, $sIntroText, $sIntroSubHeading, "")
 
     ; ===================================================================
     ; Page 2 - Ready to Uninstall
@@ -335,8 +334,8 @@ Func __Uninstall()
 	Local $idLblProgress = _GetPageCtrl(_GetWizardPage($mWizard, $iProgressPageId), "LblProgress")
 	Local $idProgressbar = _GetPageCtrl(_GetWizardPage($mWizard, $iProgressPageId), "Progressbar")
 
-	Local $sFinishMsg = "Crucial Setup Wizard has been successfully uninstalled." & @CRLF & @CRLF & _
-						"Thank you for using Crucial Setup Wizard."
+	Local $sFinishMsg = $WIZ_APP_NAME & " has been successfully uninstalled." & @CRLF & @CRLF & _
+						"Thank you for using " & $WIZ_APP_NAME & "."
 
 	Local $sFinishSubHeading = "Uninstallation complete"
 	Local $iFinishPageId = _AddFinishPage($mWizard, $mCfg, $idLblProgress, $idProgressbar, $sFinishMsg, Default, $sFinishSubHeading)

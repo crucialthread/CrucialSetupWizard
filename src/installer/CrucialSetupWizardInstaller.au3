@@ -3,14 +3,14 @@
 #AutoIt3Wrapper_Outfile_x64=..\..\.out\CrucialSetupWizardInstaller.exe
 #AutoIt3Wrapper_Res_Comment=An AutoIt library for building installer and uninstaller GUIs
 #AutoIt3Wrapper_Res_Description=Crucial Setup Wizard Installer
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.0
+#AutoIt3Wrapper_Res_Fileversion=1.1.0.0
 #AutoIt3Wrapper_Res_ProductName=Crucial Setup Wizard
-#AutoIt3Wrapper_Res_ProductVersion=1.0.0
+#AutoIt3Wrapper_Res_ProductVersion=1.1.0
 #AutoIt3Wrapper_Res_CompanyName=Crucial Thread
 #AutoIt3Wrapper_Res_LegalCopyright=MIT License
 #AutoIt3Wrapper_Res_SaveSource=y
 #AutoIt3Wrapper_Res_Language=1033
-#AutoIt3Wrapper_Add_Constants=n
+#AutoIt3Wrapper_Res_requestedExecutionLevel=requireAdministrator
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
 ; This install script requires admin but a #RequireAdmin trigger a UAC prompt at interpreted runtime, which breaks testing
@@ -19,13 +19,11 @@
 #pragma compile(AutoItExecuteAllowed, true)
 
 #include <FileConstants.au3>
-#include "CrucialSetupWizInstallConstants.au3"
-#include "..\core\CrucialSetupWizard.au3"
-#include "..\..\lib\TryCatch\TryCatch.au3"
+#include "CrucialSetupWizInstallShared.au3"
 
 ; #INDEX# =======================================================================================================================
 ; Title .........: Crucial Setup Wizard - CrucialSetupWizardInstaller.au3
-; Version .......: 1.0.0
+; Version .......: 1.1.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread
@@ -76,7 +74,7 @@ Func __DetectPaths()
     If @error Then $g_sAutoItDir = _Tstbl_RegRead($REG_AUTOIT_KEY, "InstallDir")
     If @error Then $g_sAutoItDir = "C:\Program Files (x86)\AutoIt3"
 
-    $g_sIncludePath = $g_sAutoItDir & "\Include\Vendor"
+    $g_sIncludePath = $g_sAutoItDir & "\Include\Vendor\CrucialSetupWizard"
     $g_sInstallPath = $g_sAutoItDir & "\CrucialSetupWizard"
 EndFunc
 
@@ -160,7 +158,7 @@ Func __WriteUninstallRegistry()
     Local $sUninstallerPath = $g_sInstallPath & "\CrucialSetupWizardUninstaller.exe"
 
 	Local $iReturnRegWrite = True
-    $iReturnRegWrite = $iReturnRegWrite And _Tstbl_RegWrite($REG_UNINSTALL_KEY, "DisplayName",     "REG_SZ",    "Crucial Setup Wizard")
+    $iReturnRegWrite = $iReturnRegWrite And _Tstbl_RegWrite($REG_UNINSTALL_KEY, "DisplayName",     "REG_SZ",    $WIZ_APP_NAME)
     $iReturnRegWrite = $iReturnRegWrite And _Tstbl_RegWrite($REG_UNINSTALL_KEY, "DisplayVersion",  "REG_SZ",    $WIZ_INSTALLER_VERSION)
     $iReturnRegWrite = $iReturnRegWrite And _Tstbl_RegWrite($REG_UNINSTALL_KEY, "Publisher",       "REG_SZ",    "Crucial Thread")
     $iReturnRegWrite = $iReturnRegWrite And _Tstbl_RegWrite($REG_UNINSTALL_KEY, "UninstallString", "REG_SZ",    '"' & $sUninstallerPath & '"')
@@ -238,7 +236,7 @@ Func __FindTstFmkDependency($sTarget)
 						  "https://github.com/crucialthread/AutoItTestFramework"  & @CRLF & @CRLF & _
 						  "And try again."
 
-		_Tstbl_MsgBox($MB_OK + $MB_ICONERROR, "Crucial Setup Wizard", $sMessage)
+		_Tstbl_MsgBox($MB_OK + $MB_ICONERROR, $WIZ_APP_NAME, $sMessage)
 		If _Tstbl_FileExists($sTarget) Then _Tstbl_FileDelete($sTarget)
 		Local $iExCode = _ThrowException("TstFmkNotFound", "AutoIt Test Framework is required but was not found!", __FindTstFmkDependency) Or 1
 		Return SetError($iExCode, 0, False)
@@ -294,14 +292,14 @@ Func __RunInstall($idStatusLabel, $idProgress)
 
 		If $bSkip then ConsoleWrite("- ### [MOCKING] function __RunInstall ### " & @CRLF)
 
-        _ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Creating install folders...")
+        __UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Creating install folders...")
 		If Not $bSkip Then
 			_TryWith(_NoErr() ? _Tstbl_DirCreate($g_sIncludePath) : Null)
 			_TryWith(_NoErr() ? _Tstbl_DirCreate($g_sInstallPath) : Null)
 		EndIf
         $iStep += 1
 
-        _ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Copying Crucial Setup Wizard files...")
+        __UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Copying " & $WIZ_APP_NAME & " files...")
         If Not $bSkip Then
 			__InstallFile("..\core\CrucialWizTstblInclude.au3", $g_sIncludePath & "\CrucialWizTstblInclude.au3", $FC_OVERWRITE)
 			If Not __FindTstFmkDependency($g_sIncludePath & "\CrucialWizTstblInclude.au3") Then
@@ -310,33 +308,32 @@ Func __RunInstall($idStatusLabel, $idProgress)
 			EndIf
 			__InstallFile("..\core\CrucialSetupWizard.au3", $g_sIncludePath & "\CrucialSetupWizard.au3", $FC_OVERWRITE)
 		EndIf
-
         $iStep += 1
 
-        _ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Copying CrucialSetupWizard.chm...")
+        __UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Copying CrucialSetupWizard.chm...")
         If Not $bSkip Then __InstallFile("..\..\chm\CrucialSetupWizard.chm", $g_sInstallPath & "\CrucialSetupWizard.chm", $FC_OVERWRITE)
         $iStep += 1
 
-        _ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Copying CrucialSetupWizardUninstaller.exe...")
+        __UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Copying CrucialSetupWizardUninstaller.exe...")
         If Not $bSkip Then __InstallFile("..\..\.out\CrucialSetupWizardUninstaller.exe", $g_sInstallPath & "\CrucialSetupWizardUninstaller.exe", $FC_OVERWRITE)
         $iStep += 1
 
-        _ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Writing AutoIt include registry entry...")
+        __UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Writing AutoIt include registry entry...")
         If Not $bSkip Then __WriteIncludeRegistry()
         $iStep += 1
 
-        _ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Finalizing installation...")
+        __UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Finalizing installation...")
         If Not $bSkip Then
 			__WriteInstallRegistry()
 			__WriteUninstallRegistry()
 		EndIf
         $iStep += 1
 
-		_ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Finished!")
+		__UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Finished!")
 
 		Local $e
 		If _Catch($e) Then
-			_Tstbl_ConsoleWrite("!" & _StackTrace(_FormatStackTrace) & @CRLF)
+			_Tstbl_MsgBox($MB_OK + $MB_ICONERROR, $WIZ_APP_NAME, _StackTrace(_FormatStackTrace))
 			_EndTry()
 			Return False
 		EndIf
@@ -385,20 +382,20 @@ EndFunc
 ; Returns    : Wizard map ($mWizard) ready to be passed to _InitWizard()
 ; ===============================================================================================================================
 Func __Installation()
-	Local $mCfg = _NewInstallerCfg(_NewWndCfg(580, 370))
-	Local $sInstallerTitle = "Crucial Setup Wizard"
-	Local $sHeaderTitle = "Crucial Setup Wizard"
+	Local $mCfg = _NewInstallerCfg(_NewWndCfg(620, 396))
+	Local $sInstallerTitle = $WIZ_APP_NAME
+	Local $sHeaderTitle = $WIZ_APP_NAME
 	Local $mWizard = _NewWizard($mCfg, $sInstallerTitle, $sHeaderTitle)
 
     ; ===================================================================
     ; Page 1 - Welcome
     ; ===================================================================
     Local $sIntroText = $g_bIsUpgrade ? _
-        "Welcome to the Crucial Setup Wizard." & @CRLF & @CRLF & _
-        "This process will upgrade Crucial Setup Wizard on your computer." & @CRLF & @CRLF & _
+        "Welcome to " & $WIZ_APP_NAME & " Installer." & @CRLF & @CRLF & _
+        "This process will upgrade " & $WIZ_APP_NAME & " on your computer." & @CRLF & @CRLF & _
         "Click Next to continue or Cancel to exit." : _
-        "Welcome to the Crucial Setup Wizard." & @CRLF & @CRLF & _
-        "This process will install Crucial Setup Wizard on your computer," & @CRLF & _
+        "Welcome to " & $WIZ_APP_NAME & " Installer." & @CRLF & @CRLF & _
+        "This process will install " & $WIZ_APP_NAME & " on your computer," & @CRLF & _
         "making it available from any AutoIt project via:" & @CRLF & @CRLF & _
         " #include <CrucialSetupWizard.au3>" & @CRLF & @CRLF & _
         "Click Next to continue or Cancel to exit."
@@ -438,7 +435,7 @@ Func __Installation()
 	Local $idProgressbar = _GetPageCtrl(_GetWizardPage($mWizard, $iProgressPageId), "Progressbar")
 	Local $sDocFile = $g_sInstallPath & "\CrucialSetupWizard.chm"
 
-	Local $sFinishMsg = "Crucial Setup Wizard has been successfully installed." & @CRLF & @CRLF & _
+	Local $sFinishMsg = $WIZ_APP_NAME & " has been successfully installed." & @CRLF & @CRLF & _
 						"You can now use it from any AutoIt project:" & @CRLF & _
 						" #include <CrucialSetupWizard.au3>"
 

@@ -4,6 +4,10 @@ An AutoIt library for building installer and uninstaller GUIs. Five ready-made p
 
 See the full [documentation](https://crucialthread.github.io/CrucialSetupWizard/) for more details.
 
+Crucial Setup Wizard's own installer is built with the library - see [`src/installer`](https://github.com/crucialthread/CrucialSetupWizard/tree/main/src/installer) for a real-world example.
+
+![Installer walkthrough](img/crucialsetupwizardinstaller.gif)
+
 ## Features
 
 - **Five ready-made pages for the whole flow** - intro, path selection with a Browse dialog, ready/confirm, progress, and finish, each pre-wired and ready to use out of the box

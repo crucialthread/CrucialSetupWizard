@@ -16,6 +16,7 @@
 ; This install script requires admin but a #RequireAdmin trigger a UAC prompt at interpreted runtime, which breaks testing
 ; So it is using a compile-time directive instead
 #pragma compile(ExecLevel, requireAdministrator)
+#pragma compile(AutoItExecuteAllowed, true)
 
 #include <FileConstants.au3>
 #include "CrucialSetupWizInstallConstants.au3"
@@ -217,6 +218,37 @@ EndFunc
 ;================================================================================================================================
 
 ; #FUNCTION# ====================================================================================================================
+; Verifies that AutoIt Test Framework is installed by running $sTarget through a hidden AutoIt3 process
+; and checking its output for "error". Uses _OnErrorResume() as a TryCatch guard. Shows a MsgBox and
+; throws a "TstFmkNotFound" exception if the framework is not found, deleting $sTarget first if it exists.
+; $sTarget     - Path of the script to run to detect the framework
+; Returns      : True on success, SetError on failure
+; ===============================================================================================================================
+Func __FindTstFmkDependency($sTarget)
+	If _OnErrorResume() Then Return SetError(__GetStackCount(), 0, False)
+
+	Local $iPID = _Tstbl_Run('"' & @AutoItExe & '" /ErrorStdOut /AutoIt3ExecuteScript "' & $sTarget & '"', @ScriptDir, @SW_HIDE, $STDERR_MERGED)
+
+	ProcessWaitClose($iPID)
+	Local $sOut = _Tstbl_StdoutRead($iPID)
+
+	If StringInStr($sOut, "error") Then
+		Local $sMessage = "AutoIt Test Framework is required but was not found!" & @CRLF & @CRLF & _
+						  "Please install AutoIt Test Framework from: " & @CRLF & _
+						  "https://github.com/crucialthread/AutoItTestFramework"  & @CRLF & @CRLF & _
+						  "And try again."
+
+		_Tstbl_MsgBox($MB_OK + $MB_ICONERROR, "Crucial Setup Wizard", $sMessage)
+		If _Tstbl_FileExists($sTarget) Then _Tstbl_FileDelete($sTarget)
+		Local $iExCode = _ThrowException("TstFmkNotFound", "AutoIt Test Framework is required but was not found!", __FindTstFmkDependency) Or 1
+		Return SetError($iExCode, 0, False)
+	Else
+		Return True
+	EndIf
+EndFunc
+
+
+; #FUNCTION# ====================================================================================================================
 ; Copies a single framework file to its destination using _Tstbl_FileInstall.
 ; Uses _OnErrorResume() as a TryCatch guard. Throws a "FileInstallException" exception on FileInstall failure.
 ; $sSource     - Source path of the file to install
@@ -272,8 +304,13 @@ Func __RunInstall($idStatusLabel, $idProgress)
         _ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Copying Crucial Setup Wizard files...")
         If Not $bSkip Then
 			__InstallFile("..\core\CrucialWizTstblInclude.au3", $g_sIncludePath & "\CrucialWizTstblInclude.au3", $FC_OVERWRITE)
+			If Not __FindTstFmkDependency($g_sIncludePath & "\CrucialWizTstblInclude.au3") Then
+				_EndTry()
+				Return False
+			EndIf
 			__InstallFile("..\core\CrucialSetupWizard.au3", $g_sIncludePath & "\CrucialSetupWizard.au3", $FC_OVERWRITE)
 		EndIf
+
         $iStep += 1
 
         _ProgressStep($idStatusLabel, $idProgress, $iStep, $iSteps, "Copying CrucialSetupWizard.chm...")

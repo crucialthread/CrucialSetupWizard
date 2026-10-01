@@ -494,6 +494,90 @@ EndFunc
 ;================================================================================================================================
 
 ;================================================================================================================================
+#Region ; Tests - __FindTstFmkDependency
+;================================================================================================================================
+
+Func _TestFindTstFmkDependency_ReturnsTrueWhenFrameworkFound()
+    _TestFmkHeader("Test: __FindTstFmkDependency() - returns True when the run output has no error")
+
+    _SetStubReturn("Run", $_1st, 1234)
+    _SetStubReturn("StdoutRead", $_1st, "")
+
+    Local $bResult = __FindTstFmkDependency("C:\AutoIt3\Include\Vendor\CrucialWizTstblInclude.au3")
+
+    _TestFmkAssert($bResult = True, "Returns True when no error in output", $bResult, True, $TST_WIZ_INSTALLER_TESTS)
+EndFunc
+
+Func _TestFindTstFmkDependency_ShowsMsgBoxWhenNotFound()
+    _TestFmkHeader("Test: __FindTstFmkDependency() - shows a MsgBox when the framework is not found")
+
+    _SetStubReturn("Run", $_1st, 1234)
+    _SetStubReturn("StdoutRead", $_1st, "error")
+
+    __FindTstFmkDependency("C:\AutoIt3\Include\Vendor\CrucialWizTstblInclude.au3")
+
+    _TestFmkAssert(_StubCallCount("MsgBox") = 1, "MsgBox shown", _StubCallCount("MsgBox"), 1, $TST_WIZ_INSTALLER_TESTS)
+EndFunc
+
+Func _TestFindTstFmkDependency_DeletesTargetFileWhenNotFoundAndFileExists()
+    _TestFmkHeader("Test: __FindTstFmkDependency() - deletes the target file when not found and the file exists")
+
+    _SetStubReturn("Run", $_1st, 1234)
+    _SetStubReturn("StdoutRead", $_1st, "error")
+    _SetStubReturn("FileExists", $_1st, True)
+
+    __FindTstFmkDependency("C:\AutoIt3\Include\Vendor\CrucialWizTstblInclude.au3")
+
+    _TestFmkAssert(_StubCallCount("FileDelete") = 1, "Target file deleted", _StubCallCount("FileDelete"), 1, $TST_WIZ_INSTALLER_TESTS)
+EndFunc
+
+Func _TestFindTstFmkDependency_DoesNotDeleteWhenTargetFileMissing()
+    _TestFmkHeader("Test: __FindTstFmkDependency() - does not attempt delete when the target file does not exist")
+
+    _SetStubReturn("Run", $_1st, 1234)
+    _SetStubReturn("StdoutRead", $_1st, "error")
+    _SetStubReturn("FileExists", $_1st, False)
+
+    __FindTstFmkDependency("C:\AutoIt3\Include\Vendor\CrucialWizTstblInclude.au3")
+
+    _TestFmkAssert(_StubCallCount("FileDelete") = 0, "FileDelete not called", _StubCallCount("FileDelete"), 0, $TST_WIZ_INSTALLER_TESTS)
+EndFunc
+
+Func _TestFindTstFmkDependency_ErrorOnNotFound()
+    _TestFmkHeader("Test: __FindTstFmkDependency() - returns False and sets @error when not found")
+
+    _SetStubReturn("Run", $_1st, 1234)
+    _SetStubReturn("StdoutRead", $_1st, "error")
+    _SetStubReturn("FileExists", $_1st, False)
+
+    Local $bResult = __FindTstFmkDependency("C:\AutoIt3\Include\Vendor\CrucialWizTstblInclude.au3")
+    Local $iErr = @error
+
+    _TestFmkAssert($bResult = False, "Returns False when not found",    $bResult,  False, $TST_WIZ_INSTALLER_TESTS)
+    _TestFmkAssert($iErr > 0,        "Sets @error when not found",      $iErr > 0, True,  $TST_WIZ_INSTALLER_TESTS)
+EndFunc
+
+Func _TestFindTstFmkDependency_ThrowsOnNotFound()
+    _TestFmkHeader("Test: __FindTstFmkDependency() - thrown expected exception when not found")
+
+    _SetStubReturn("Run", $_1st, 1234)
+    _SetStubReturn("StdoutRead", $_1st, "error")
+    _SetStubReturn("FileExists", $_1st, False)
+
+    _Try()
+        __FindTstFmkDependency("C:\AutoIt3\Include\Vendor\CrucialWizTstblInclude.au3")
+        Local $e
+        Local $bExceptionThrown = _Catch($e, _AsExceptionType("TstFmkNotFound")) ? True : False
+    _EndTry()
+
+    _TestFmkAssert($bExceptionThrown = True, """TstFmkNotFound"" type thrown", $bExceptionThrown, True, $TST_WIZ_INSTALLER_TESTS)
+EndFunc
+
+;================================================================================================================================
+#EndRegion <<<
+;================================================================================================================================
+
+;================================================================================================================================
 #Region ; Tests - __InstallFile
 ;================================================================================================================================
 
@@ -742,6 +826,16 @@ Func __RunCrucialWizInstallerTest_WriteUninstallRegistry(ByRef $bAllPassed)
 	$bAllPassed = _TestFmkRun(_TestWriteUninstallRegistry_ThrowsOnRegWriteFailure, $bAllPassed)
 EndFunc
 
+Func __RunCrucialWizInstallerTest_FindTstFmkDependency(ByRef $bAllPassed)
+    _TestFmkSeparator()
+    $bAllPassed = _TestFmkRun(_TestFindTstFmkDependency_ReturnsTrueWhenFrameworkFound, $bAllPassed)
+    $bAllPassed = _TestFmkRun(_TestFindTstFmkDependency_ShowsMsgBoxWhenNotFound, $bAllPassed)
+    $bAllPassed = _TestFmkRun(_TestFindTstFmkDependency_DeletesTargetFileWhenNotFoundAndFileExists, $bAllPassed)
+    $bAllPassed = _TestFmkRun(_TestFindTstFmkDependency_DoesNotDeleteWhenTargetFileMissing, $bAllPassed)
+    $bAllPassed = _TestFmkRun(_TestFindTstFmkDependency_ErrorOnNotFound, $bAllPassed)
+    $bAllPassed = _TestFmkRun(_TestFindTstFmkDependency_ThrowsOnNotFound, $bAllPassed)
+EndFunc
+
 Func __RunCrucialWizInstallerTest_InstallFile(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestInstallFile_ReturnsTrueOnSuccess, $bAllPassed)
@@ -788,6 +882,7 @@ Func _RunCrucialWizInstallerTests($bWriteSummary = True)
     __RunCrucialWizInstallerTest_WriteIncludeRegistry($bAllPassed)
     __RunCrucialWizInstallerTest_WriteInstallRegistry($bAllPassed)
     __RunCrucialWizInstallerTest_WriteUninstallRegistry($bAllPassed)
+	__RunCrucialWizInstallerTest_FindTstFmkDependency($bAllPassed)
 	__RunCrucialWizInstallerTest_InstallFile($bAllPassed)
     __RunCrucialWizInstallerTest_RunInstall($bAllPassed)
     __RunCrucialWizInstallerTest_UpdateIncludePath($bAllPassed)

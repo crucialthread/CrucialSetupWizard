@@ -42,6 +42,10 @@ _InitWizard($mWizard)
 
 ## Installation
 
+### Dependency
+
+Crucial Setup Wizard requires [AutoIt Test Framework](https://github.com/crucialthread/AutoItTestFramework) to be installed since its built-in functions follow AutoIt Test Framework's testable-function pattern.
+
 ### Option 1 - Installer (recommended)
 
 Download the latest installer from the [releases page](https://github.com/crucialthread/CrucialSetupWizard/releases) and run it. It copies `CrucialSetupWizard.au3` to your AutoIt Vendor include folder and configures the registry automatically, making it available from any project via:
@@ -58,11 +62,11 @@ The installer also includes the documentation (`CrucialSetupWizard.chm`) and an 
 > - Click **More info** then **Run anyway** on the SmartScreen dialog
 > - Right-click the downloaded `.exe` > **Properties** > check **Unblock** at the bottom > click OK, then run it normally
 >
-> If you prefer not to run the installer, you can install manually by downloading and extracting the source code zip from the releases page, copying `src/core/CrucialSetupWizard.au3` into your project folder, and following Option 2 below.
+> If you prefer not to run the installer, you can install manually by downloading and extracting the source code zip from the releases page, copying `src/core/*.au3` into your project folder, and following Option 2 below.
 
 ### Option 2 - Local project folder
 
-Download and extract the source code zip from the [releases page](https://github.com/crucialthread/CrucialSetupWizard/releases), copy `src/core/CrucialSetupWizard.au3` into your project folder, and reference it with a relative path:
+Download and extract the source code zip from the [releases page](https://github.com/crucialthread/CrucialSetupWizard/releases), copy `src/core/CrucialSetupWizard.au3` and `src/core/CrucialWizTstblInclude.au3` into your project folder, and reference it with a relative path:
 
 ```autoit
 #include "CrucialSetupWizard.au3"
@@ -70,9 +74,13 @@ Download and extract the source code zip from the [releases page](https://github
 
 This is the simplest option but means you need a separate copy for each project (or you can keep it in a shared folder from where all your projects reference it).
 
-### Option 3 - Git submodule (recommended for Git projects)
+> **Note:** `CrucialWizTstblInclude.au3` expects it installed globally (`#include <Testable.au3>`). If you'd rather not install it globally, edit `CrucialWizTstblInclude.au3` to point wherever you keep `Testable.au3` instead.
+
+### Option 3 - Git submodule (advanced, recommended for Git projects)
 
 If your project is a Git repository, you can add Crucial Setup Wizard as a submodule directly from the `dist` branch. This gives you `CrucialSetupWizard.au3` with no extra content from the development repo, and lets you pin to a specific version and update deliberately when you are ready.
+
+Crucial Setup Wizard expects AutoIt Test Framework to also be provided as a Git submodule, at `lib/TestFramework` sibling to wherever you submodule Crucial Setup Wizard - feel free to add it that way, or to edit `CrucialWizTstblInclude.au3` to point wherever you keep `Testable.au3` instead.
 
 **Step 1 - Add the submodule:**
 
@@ -81,7 +89,14 @@ git submodule add -b dist https://github.com/crucialthread/CrucialSetupWizard li
 git submodule update --init
 ```
 
-**Step 2 - Reference it from your script:**
+**Step 2 - Add AutoIt Test Framework as a submodule (skip this if you edited `CrucialWizTstblInclude.au3` to point elsewhere instead):**
+
+```bash
+git submodule add -b dist https://github.com/crucialthread/AutoItTestFramework lib/TestFramework
+git submodule update --init
+```
+
+**Step 3 - Reference it from your script:**
 
 ```autoit
 #include "lib/CrucialSetupWizard/CrucialSetupWizard.au3"
@@ -111,9 +126,9 @@ git commit -m "Update Crucial Setup Wizard to latest"
 
 ### Conflict between global installation and Git submodule
 
-If you have Crucial Setup Wizard installed globally (via the installer) and are working on a Git project that also includes it as a submodule, you will get duplicate declaration errors at runtime. This happens because AutoIt sees two copies of the same file from different paths.
+If you have Crucial Setup Wizard installed globally (via the installer) and are working on a Git project that also includes it as a submodule, you may get duplicate declaration errors at runtime. This happens because AutoIt sees two copies of the same file from different paths.
 
-To resolve this, uninstall the global installation via Add/Remove Programs and use the submodule reference (`#include "lib/CrucialSetupWizard/CrucialSetupWizard.au3"`) for that project. Then install it locally as described in Option 2, and any other scripts that previously used `#include <CrucialSetupWizard.au3>` will need to be updated to reference the file directly.
+To resolve this, uninstall the global installation via Add/Remove Programs and use the submodule reference for that project. Then install it locally as described in Option 2, and any other scripts that previously used the angle-bracket form will need to be updated to reference the file directly.
 
 ## Usage
 
@@ -214,6 +229,7 @@ See the [documentation](https://crucialthread.github.io/CrucialSetupWizard/) for
 ## Requirements
 
 - AutoIt 3.3.18.0 or later
+- [AutoIt Test Framework](https://github.com/crucialthread/AutoItTestFramework) (`Testable.au3`), referenced through `CrucialWizTstblInclude.au3` - see Installation above for how each option provides it
 - SciTE4AutoIt3 (optional, for readable console error messages while a script runs uncompiled)
 
 ## License

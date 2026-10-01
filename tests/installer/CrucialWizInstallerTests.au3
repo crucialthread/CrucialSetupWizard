@@ -666,7 +666,7 @@ Func _TestRunInstall_ReturnsFalseOnFailure()
 
     $g_sIncludePath = "C:\AutoIt3\Include\Vendor"
     $g_sInstallPath = "C:\AutoIt3\CrucialSetupWizard"
-    _SetStubReturn("FileInstall", $_1st, 0)
+    _SetStubReturn("FileInstall", $_2nd, 0)
 
     Local $bResult = __RunInstall(10, 11)
 	Local $sConsoleWriteReturn = _GetStubCall("ConsoleWrite", $_1st, $Param_Text)

@@ -10,7 +10,7 @@
 
 ;#INDEX# ========================================================================================================================
 ; Title .........: Crucial Setup Wizard - CrucialSetupWizard.au3
-; Version .......: 0.0.1
+; Version .......: 1.0.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread

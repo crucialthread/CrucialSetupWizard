@@ -427,7 +427,7 @@ EndFunc
 Func _TestRunUninstall_ReturnsFalseOnFailure()
     _TestFmkHeader("Test: __RunUninstall() - returns False when a step fails")
 
-    $g_sIncludePath = "C:\AutoIt3\Include\Vendor"
+    $g_sIncludePath = "C:\AutoIt3\Include\Vendor\TestFramework"
     $g_sInstallPath = "C:\AutoIt3\TestFramework"
 
     _SetStubReturn("FileDelete", $_1st, 0)  ; first file delete fails - throws RemoveFileException

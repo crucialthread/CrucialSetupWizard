@@ -38,6 +38,9 @@
 ; Note ..........: Requires administrator rights to delete from Program Files.
 ; Note ..........: The uninstall steps in __RunUninstall are mocked when running as a _
 ;                  plain script outside of test mode ($__TFW_TEST_MODE not declared).
+;
+; Dependencies ..: AutoItTryCatch (https://github.com/crucialthread/AutoItTryCatch) to provide try/catch and thrown exceptions
+;                  AutoItTestFramework (https://github.com/crucialthread/AutoItTestFramework) to provide testable built-in func
 ; ===============================================================================================================================
 
 ;================================================================================================================================

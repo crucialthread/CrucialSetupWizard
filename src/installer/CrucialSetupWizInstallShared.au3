@@ -1,7 +1,7 @@
 #include-once
 
 #include "..\core\CrucialSetupWizard.au3"
-#include "..\..\lib\TryCatch\TryCatch.au3"
+#include "..\..\lib\TryCatch\TryCatch.au3"		;https://github.com/crucialthread/AutoItTryCatch
 
 ; #INDEX# =======================================================================================================================
 ; Title .........: Crucial Setup Wizard - CrucialSetupWizInstallShared.au3
@@ -10,6 +10,8 @@
 ; Language ......: English
 ; Author ........: Crucial Thread
 ; Description ...: Crucial Setup Wizard Installer/Uninstaller shared constants, globals, and functions.
+; Note ..........: The installer/uninstaller uses AutoItTryCatch solution to provide Try/Catch features.
+;                  Find more details about AutoItTryCatch at: https://github.com/crucialthread/AutoItTryCatch
 ; ===============================================================================================================================
 
 ; ===============================================================================================================================

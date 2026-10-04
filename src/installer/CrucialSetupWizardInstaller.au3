@@ -40,6 +40,9 @@
 ;                  compile time. The compiled .exe is fully self-contained.
 ; Note ..........: The installation steps in __RunInstall are mocked when running as a _
 ;                  plain script outside of test mode ($__TFW_TEST_MODE not declared).
+;
+; Dependencies ..: AutoItTryCatch (https://github.com/crucialthread/AutoItTryCatch) to provide try/catch and thrown exceptions
+;                  AutoItTestFramework (https://github.com/crucialthread/AutoItTestFramework) to provide testable built-in func
 ; ===============================================================================================================================
 
 ;================================================================================================================================

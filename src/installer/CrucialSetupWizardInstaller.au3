@@ -3,9 +3,9 @@
 #AutoIt3Wrapper_Outfile_x64=..\..\.out\CrucialSetupWizardInstaller.exe
 #AutoIt3Wrapper_Res_Comment=An AutoIt library for building installer and uninstaller GUIs
 #AutoIt3Wrapper_Res_Description=Crucial Setup Wizard Installer
-#AutoIt3Wrapper_Res_Fileversion=1.1.0.0
+#AutoIt3Wrapper_Res_Fileversion=1.2.0.0
 #AutoIt3Wrapper_Res_ProductName=Crucial Setup Wizard
-#AutoIt3Wrapper_Res_ProductVersion=1.1.0
+#AutoIt3Wrapper_Res_ProductVersion=1.2.0
 #AutoIt3Wrapper_Res_CompanyName=Crucial Thread
 #AutoIt3Wrapper_Res_LegalCopyright=MIT License
 #AutoIt3Wrapper_Res_SaveSource=y
@@ -23,7 +23,7 @@
 
 ; #INDEX# =======================================================================================================================
 ; Title .........: Crucial Setup Wizard - CrucialSetupWizardInstaller.au3
-; Version .......: 1.1.0
+; Version .......: 1.2.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread
@@ -406,9 +406,10 @@ Func __Installation()
     ; ===================================================================
     ; Page 2 - Install Path
     ; ===================================================================
-    Local $sPathPageInfo = "CrucialSetupWizard.au3 will be copied to the folder below." & @CRLF & @CRLF & _
-						   "A registry entry will be created so AutoIt finds it automatically" & @CRLF & _
-						   "using #include <CrucialSetupWizard.au3> from any project."
+    Local $sPathPageInfo = "The library files will be copied to AutoIt Include/Vendor, " & @CRLF & _
+						   "and a registry entry will be created so AutoIt finds it automatically" & @CRLF & _
+						   "using #include <CrucialSetupWizard.au3> from any project." & @CRLF & @CRLF & _
+						   "The other files will be installed to the folder bellow."
 
 	Local $sPathLabel = "Install folder:"
 	Local $sPathSubHeading = "Choose install folder"

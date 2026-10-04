@@ -10,7 +10,7 @@
 
 ;#INDEX# ========================================================================================================================
 ; Title .........: Crucial Setup Wizard - CrucialSetupWizard.au3
-; Version .......: 1.0.0
+; Version .......: 1.2.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread
@@ -1442,19 +1442,20 @@ Func __SetPathPage($hGUI, ByRef $mPage, Const ByRef $mCfg, $sPath, $hUpdateSrcFu
 	_Tstbl_GUISwitch($hGUI)
 
 	Local $iPaddingLeft = 15
+	Local $iPaddingBottom = $mCfg.iFooterSepY - 107
 
-	Local $iLblPathPageInfoHeight = 90
+	Local $iLblPathPageInfoHeight = $iPaddingBottom - $mCfg.iContentTop
 
-	Local $iLblPathTop = $mCfg.iContentTop + 105
-	Local $iLblPathWidth = 200
+	Local $iLblPathTop = $mCfg.iContentTop + $iLblPathPageInfoHeight + 5
+	Local $iLblPathWidth = $mCfg.iWndWidth - 115
 	Local $iLblPathHeight = 22
 
-	Local $iInputPathTop = $mCfg.iContentTop + 128
-	Local $iInputPathWidth = $mCfg.iWndWidth - 115
+	Local $iInputPathTop = $iLblPathTop + $iLblPathHeight + 1
+	Local $iInputPathWidth = $iLblPathWidth
 	Local $iInputPathHeight = 28
 
 	Local $iBtnBrowseLeft = $iPaddingLeft + $iInputPathWidth + 5
-	Local $iBtnBrowseTop = $mCfg.iContentTop + 127
+	Local $iBtnBrowseTop = $iLblPathTop + $iLblPathHeight
 	Local $iBtnBrowseWidth = 80
 	Local $iBtnBrowseHeight = 30
 

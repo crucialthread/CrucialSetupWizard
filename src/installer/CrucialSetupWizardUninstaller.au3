@@ -3,9 +3,9 @@
 #AutoIt3Wrapper_Outfile_x64=..\..\.out\CrucialSetupWizardUninstaller.exe
 #AutoIt3Wrapper_Res_Comment=An AutoIt library for building installer and uninstaller GUIs
 #AutoIt3Wrapper_Res_Description=Crucial Setup Wizard Uninstaller
-#AutoIt3Wrapper_Res_Fileversion=1.1.0.0
+#AutoIt3Wrapper_Res_Fileversion=1.2.0
 #AutoIt3Wrapper_Res_ProductName=Crucial Setup Wizard
-#AutoIt3Wrapper_Res_ProductVersion=1.1.0
+#AutoIt3Wrapper_Res_ProductVersion=1.2.0
 #AutoIt3Wrapper_Res_CompanyName=Crucial Thread
 #AutoIt3Wrapper_Res_LegalCopyright=MIT License
 #AutoIt3Wrapper_Res_SaveSource=y
@@ -23,7 +23,7 @@
 
 ; #INDEX# =======================================================================================================================
 ; Title .........: Crucial Setup Wizard - CrucialSetupWizardUninstaller.au3
-; Version .......: 1.1.0
+; Version .......: 1.2.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread
@@ -152,6 +152,29 @@ Func __RemoveIncludeRegistry()
 EndFunc
 
 ; #FUNCTION# ====================================================================================================================
+; Deletes a registry key and treats it as already removed if it doesn't exist. If RegDelete() reports nothing was
+; deleted, RegRead() is used to confirm the key is actually gone before treating it as success. Throws a
+; "RegDeleteException" if the key still exists after that check, or if RegDelete() itself fails.
+; $sKeyName    - Full registry key path to delete
+; Returns      : True on success (including when the key was already gone), SetError on failure
+; =================================================================================================================================
+Func __RemoveRegistryKey($sKeyName)
+	If _OnErrorResume() Then Return SetError(__GetStackCount(), 0, False)
+
+	Local $iRegDelete = _Tstbl_RegDelete($sKeyName)
+	Local $iErr = @error
+
+	If Not $iErr And Not $iRegDelete Then
+		_Tstbl_RegRead($sKeyName, "")
+		$iErr = Not @error
+	EndIf
+
+	If Not $iErr Then Return True
+	Local $iExCode = _ThrowException("RegDeleteException", "Failed to delete the registry key", __RemoveRegistryKey) Or 1
+	Return SetError($iExCode, 0, False)
+EndFunc
+
+; #FUNCTION# ====================================================================================================================
 ; Removes the specified folder only if it contains no files.
 ; Uses _OnErrorResume() as a TryCatch guard. Throws a "RemoveFolderException" on dir remove failure.
 ; $sFolder   - Full path of the folder to remove if empty
@@ -240,8 +263,8 @@ Func __RunUninstall($idStatusLabel, $idProgress)
 		$iStep += 1
 
 		__UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Removing " & $WIZ_APP_NAME & " registry entries...")
-		If Not $bSkip Then _TryWith(_NoErr() ? _Tstbl_RegDelete($REG_INSTALL_KEY) : Null)
-		If Not $bSkip Then _TryWith(_NoErr() ? _Tstbl_RegDelete($REG_UNINSTALL_KEY) : Null)
+		If Not $bSkip Then __RemoveRegistryKey($REG_INSTALL_KEY)
+		If Not $bSkip Then __RemoveRegistryKey($REG_UNINSTALL_KEY)
         $iStep += 1
 
 		__UpdateProgressBar($idStatusLabel, $idProgress, $iStep, $iSteps, "Removing Vendor folder if empty...")

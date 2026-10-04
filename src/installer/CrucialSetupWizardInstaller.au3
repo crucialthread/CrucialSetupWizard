@@ -412,7 +412,7 @@ Func __Installation()
     Local $sPathPageInfo = "The library files will be copied to AutoIt Include/Vendor, " & @CRLF & _
 						   "and a registry entry will be created so AutoIt finds it automatically" & @CRLF & _
 						   "using #include <CrucialSetupWizard.au3> from any project." & @CRLF & @CRLF & _
-						   "The other files will be installed to the folder bellow."
+						   "The other files will be installed to the folder below."
 
 	Local $sPathLabel = "Install folder:"
 	Local $sPathSubHeading = "Choose install folder"

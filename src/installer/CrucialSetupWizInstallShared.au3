@@ -5,7 +5,7 @@
 
 ; #INDEX# =======================================================================================================================
 ; Title .........: Crucial Setup Wizard - CrucialSetupWizInstallShared.au3
-; Version .......: 1.1.0
+; Version .......: 1.2.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread
@@ -16,7 +16,7 @@
 ; Constants
 ; ===============================================================================================================================
 
-Global Const $WIZ_INSTALLER_VERSION = "1.1.0"
+Global Const $WIZ_INSTALLER_VERSION = "1.2.0"
 Global Const $WIZ_APP_NAME 			= "Crucial Setup Wizard"
 Global Const $WIZ_UNINSTALLER_TITLE = $WIZ_APP_NAME & " Uninstall"
 

@@ -4,7 +4,7 @@
 
 ; #INDEX# =======================================================================================================================
 ; Title .........: Crucial Setup Wizard - CrucialWizUninstallerTests.au3
-; Version .......: 1.1.0
+; Version .......: 1.2.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread

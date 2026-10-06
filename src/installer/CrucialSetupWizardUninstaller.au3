@@ -3,9 +3,9 @@
 #AutoIt3Wrapper_Outfile_x64=..\..\.out\CrucialSetupWizardUninstaller.exe
 #AutoIt3Wrapper_Res_Comment=An AutoIt library for building installer and uninstaller GUIs
 #AutoIt3Wrapper_Res_Description=Crucial Setup Wizard Uninstaller
-#AutoIt3Wrapper_Res_Fileversion=1.2.0
+#AutoIt3Wrapper_Res_Fileversion=1.3.0.0
 #AutoIt3Wrapper_Res_ProductName=Crucial Setup Wizard
-#AutoIt3Wrapper_Res_ProductVersion=1.2.0
+#AutoIt3Wrapper_Res_ProductVersion=1.3.0
 #AutoIt3Wrapper_Res_CompanyName=Crucial Thread
 #AutoIt3Wrapper_Res_LegalCopyright=MIT License
 #AutoIt3Wrapper_Res_SaveSource=y
@@ -23,7 +23,7 @@
 
 ; #INDEX# =======================================================================================================================
 ; Title .........: Crucial Setup Wizard - CrucialSetupWizardUninstaller.au3
-; Version .......: 1.2.0
+; Version .......: 1.3.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread

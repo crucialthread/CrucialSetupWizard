@@ -6,7 +6,7 @@
 
 ; #INDEX# =======================================================================================================================
 ; Title .........: CrucialWizHeaderTests.au3
-; Version .......: 1.2.0
+; Version .......: 1.3.0
 ; AutoIt Version : 3.3.18.0
 ; Author ........: Crucial Thread
 ; Description ...: Unit tests for the Header Constructors Helpers region of CrucialSetupWizard.au3.

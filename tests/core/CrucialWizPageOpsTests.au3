@@ -6,7 +6,7 @@
 
 ; #INDEX# =======================================================================================================================
 ; Title .........: CrucialWizPageOpsTests.au3
-; Version .......: 1.2.0
+; Version .......: 1.3.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread
@@ -368,6 +368,40 @@ Func _TestSetPage_LoadsCorrectPage()
 EndFunc
 
 ; ===============================================================================================================================
+; Tests - __LeavePage
+; ===============================================================================================================================
+
+Func __TestOnLeaveHandler()
+    $g_bOnLeaveCalled = True
+EndFunc
+
+Func _TestLeavePage_TriggersOnClose()
+    _TestFmkHeader("Test: __LeavePage() - triggers OnLeave handler for page")
+
+    Global $g_bOnLeaveCalled = False
+    Local $mPages = _CreatePages()
+    Local $mPage  = _NewPage("Test")
+    $mPage.OnLeave = _SetEventHandler(__TestOnLeaveHandler)
+    _AddPage($mPages, $mPage)
+
+    Local $iPage = 1
+	__LeavePage($iPage, $mPages)
+
+    _TestFmkAssert($g_bOnLeaveCalled = True, "OnLeave handler called", $g_bOnLeaveCalled, True)
+EndFunc
+
+Func _TestLeavePage_InvalidPages()
+    _TestFmkHeader("Test: __LeavePage() - does nothing for invalid pages map")
+
+    Global $g_bOnLeaveCalled = False
+
+	Local $iPage = 1
+    __LeavePage($iPage, "invalid pages map")
+
+    _TestFmkAssert($g_bOnLeaveCalled = False, "No call for invalid pages map", $g_bOnLeaveCalled, False)
+EndFunc
+
+; ===============================================================================================================================
 ; Tests - _ProgressStep
 ; ===============================================================================================================================
 Func _TestProgressStep_SetsProgressValue()
@@ -469,6 +503,12 @@ Func __RunCrucialWizPageOpsTest_SetPage(ByRef $bAllPassed)
     $bAllPassed = _TestFmkRun(_TestSetPage_LoadsCorrectPage, 	  $bAllPassed)
 EndFunc
 
+Func __RunCrucialWizPageOpsTest_LeavePage(ByRef $bAllPassed)
+    _TestFmkSeparator()
+    $bAllPassed = _TestFmkRun(_TestLeavePage_TriggersOnClose, $bAllPassed)
+    $bAllPassed = _TestFmkRun(_TestLeavePage_InvalidPages,    $bAllPassed)
+EndFunc
+
 Func __RunCrucialWizPageOpsTest_ProgressStep(ByRef $bAllPassed)
     _TestFmkSeparator()
     $bAllPassed = _TestFmkRun(_TestProgressStep_SetsProgressValue,  $bAllPassed)
@@ -485,6 +525,7 @@ Func _RunCrucialWizPageOpsTests($bWriteSummary = True)
     __RunCrucialWizPageOpsTest_PageLoad($bAllPassed)
     __RunCrucialWizPageOpsTest_ClosePage($bAllPassed)
     __RunCrucialWizPageOpsTest_SetPage($bAllPassed)
+	__RunCrucialWizPageOpsTest_LeavePage($bAllPassed)
 	__RunCrucialWizPageOpsTest_ProgressStep($bAllPassed)
     If $bWriteSummary Then _TestFmkSummary()
     Return $bAllPassed

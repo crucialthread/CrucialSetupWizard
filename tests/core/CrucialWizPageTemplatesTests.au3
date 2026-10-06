@@ -6,7 +6,7 @@
 
 ; #INDEX# =======================================================================================================================
 ; Title .........: CrucialWizPageTemplatesTests.au3
-; Version .......: 1.2.0
+; Version .......: 1.3.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread
@@ -265,20 +265,32 @@ Func _TestSetPathPage_WithAllParams()
     Local $vArgPathLabel     = IsArray($aArgs) And UBound($aArgs) > 2 ? $aArgs[2] : Null
     Local $vArgUpdateSrcFunc = IsArray($aArgs) And UBound($aArgs) > 3 ? $aArgs[3] : Null
 
-    _TestFmkAssert($mPage.iStatus      = $eNormalPage,       "Status is eNormalPage",                 $mPage.iStatus,      $eNormalPage)
-    _TestFmkAssert($mPage.sSubheading  = $sSubHeading,       "Subheading set correctly",              $mPage.sSubheading,  $sSubHeading)
-    _TestFmkAssert($sStubPathInfoTxt   = $sPathInfo,         "Path info label text correct",          $sStubPathInfoTxt,   $sPathInfo)
-    _TestFmkAssert($sStubPathLblTxt    = $sPathLabel,        "Path label text correct",               $sStubPathLblTxt,    $sPathLabel)
-    _TestFmkAssert($sStubInputPath     = $sPath,             "Input path text correct",               $sStubInputPath,     $sPath)
-	_TestFmkAssert($sStubBtnBrowse     = "Browse...",        "Button Browse text correct",            $sStubBtnBrowse,     "Browse...")
-    _TestFmkAssert($idCtrlPathInfo     = $idLblPathPageInfo, "LblPathPageInfo registered",            $idCtrlPathInfo,     $idLblPathPageInfo)
-    _TestFmkAssert($idCtrlLblPath      = $idLblPath,         "LblPath registered",                    $idCtrlLblPath,      $idLblPath)
-    _TestFmkAssert($idCtrlInputPath    = $idInputPath,       "InputPath registered",                  $idCtrlInputPath,    $idInputPath)
-    _TestFmkAssert($idCtrlBtnBrowse    = $idBtnBrowse,       "BtnBrowse registered",                  $idCtrlBtnBrowse,    $idBtnBrowse)
-    _TestFmkAssert($bBrowseReg,                              "BtnBrowse OnClick handler registered",  $bBrowseReg,         True)
-    _TestFmkAssert($vArgInputPath      = $idInputPath,       "OnClick receives InputPath as arg",     $vArgInputPath,      $idInputPath)
-    _TestFmkAssert($vArgPathLabel      = $sPathLabel,        "OnClick receives PathLabel as arg",     $vArgPathLabel,      $sPathLabel)
-    _TestFmkAssert($vArgUpdateSrcFunc  = $hUpdateSrcFunc,    "OnClick receives UpdateSrcFunc as arg", $vArgUpdateSrcFunc,  $hUpdateSrcFunc)
+    Local $bOnLeaveRegistered  = MapExists($mPage, $ONLEAVE)
+	Local $vOnLeaveArg 		   = Not $bOnLeaveRegistered ? Null : _
+								 Not MapExists($mPage[$ONLEAVE], "aArgs") ? Null : _
+								 $mPage[$ONLEAVE].aArgs
+
+    Local $vOnLeaveArgFunc 	   = IsArray($vOnLeaveArg) And UBound($vOnLeaveArg) > 1 ? $vOnLeaveArg[1] : Null
+	Local $vOnLeaveArgPath     = IsArray($vOnLeaveArg) And UBound($vOnLeaveArg) > 2 ? $vOnLeaveArg[2] : Null
+
+
+    _TestFmkAssert($mPage.iStatus       = $eNormalPage,       "Status is eNormalPage",                 		   $mPage.iStatus,      $eNormalPage)
+    _TestFmkAssert($mPage.sSubheading   = $sSubHeading,       "Subheading set correctly",              		   $mPage.sSubheading,  $sSubHeading)
+    _TestFmkAssert($sStubPathInfoTxt    = $sPathInfo,         "Path info label text correct",          		   $sStubPathInfoTxt,   $sPathInfo)
+    _TestFmkAssert($sStubPathLblTxt     = $sPathLabel,        "Path label text correct",               		   $sStubPathLblTxt,    $sPathLabel)
+    _TestFmkAssert($sStubInputPath      = $sPath,             "Input path text correct",               		   $sStubInputPath,     $sPath)
+	_TestFmkAssert($sStubBtnBrowse      = "Browse...",        "Button Browse text correct",            		   $sStubBtnBrowse,     "Browse...")
+    _TestFmkAssert($idCtrlPathInfo      = $idLblPathPageInfo, "LblPathPageInfo registered",            		   $idCtrlPathInfo,     $idLblPathPageInfo)
+    _TestFmkAssert($idCtrlLblPath       = $idLblPath,         "LblPath registered",                    		   $idCtrlLblPath,      $idLblPath)
+    _TestFmkAssert($idCtrlInputPath     = $idInputPath,       "InputPath registered",                  		   $idCtrlInputPath,    $idInputPath)
+    _TestFmkAssert($idCtrlBtnBrowse     = $idBtnBrowse,       "BtnBrowse registered",                  		   $idCtrlBtnBrowse,    $idBtnBrowse)
+    _TestFmkAssert($bBrowseReg			= True,               "BtnBrowse OnClick handler registered",  		   $bBrowseReg,         True)
+    _TestFmkAssert($vArgInputPath       = $idInputPath,       "OnClick receives InputPath as arg",     		   $vArgInputPath,      $idInputPath)
+    _TestFmkAssert($vArgPathLabel       = $sPathLabel,        "OnClick receives PathLabel as arg",     		   $vArgPathLabel,      $sPathLabel)
+    _TestFmkAssert($vArgUpdateSrcFunc   = $hUpdateSrcFunc,    "OnClick receives UpdateSrcFunc as arg", 		   $vArgUpdateSrcFunc,  $hUpdateSrcFunc)
+    _TestFmkAssert($bOnLeaveRegistered  = True,            	  "OnLeave handler registered",                    $bOnLeaveRegistered, True)
+    _TestFmkAssert($vOnLeaveArgFunc 	= $hUpdateSrcFunc, 	  "OnLeave handler receives UpdateSrcFunc as arg", $vOnLeaveArgFunc,  	$hUpdateSrcFunc)
+	_TestFmkAssert($vOnLeaveArgPath     = $idInputPath,    	  "OnLeave receives InputPath as arg", 			   $vOnLeaveArgPath,    $idInputPath)
 EndFunc
 
 Func _TestSetPathPage_WithReqParams()

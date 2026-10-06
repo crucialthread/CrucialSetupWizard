@@ -13,7 +13,7 @@ Crucial Setup Wizard's own installer is built with the library - see [`src/insta
 - **Five ready-made pages for the whole flow** - intro, path selection with a Browse dialog, ready/confirm, progress, and finish, each pre-wired and ready to use out of the box
 - **Flexible by design** - use the five page templates as they are, customize the pieces you need, or build a page entirely your own from the same controls, event handlers and buttons the templates are made of
 - **Configure once, apply everywhere** - window sizing, fonts and button captions combine into a single config you build once and pass to every page and control, overriding only what you need while everything else falls back to defaults
-- **Custom event hooks** - `OnLoad`/`AfterLoad`/`OnClose`/`OnClick` events are handled by reusable handler functions, so you can plug in a ready-made one, swap it for another, or write your own, all using the same simple mechanism
+- **Custom event hooks** - `OnLoad`/`AfterLoad`/`OnLeave`/`OnClose`/`OnClick` events are handled by reusable handler functions, so you can plug in a ready-made one, swap it for another, or write your own, all using the same simple mechanism
 - **Self-managing buttons** - Cancel/Back/Next enable state and caption switch automatically based on each page's status
 - **Visible progress you control** - drive a multi-step install or uninstall process with a progress bar and status text that update in real time
 - **Reliable, and easy to troubleshoot** - invalid input is caught before it can crash the wizard, and reported with a clear message, including console output during development that points straight to what's wrong

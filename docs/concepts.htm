@@ -84,9 +84,8 @@ template, or setting <code>iStatus</code> directly on a hand-built page.</p>
 
 <h2>Hooking Into a Page's Lifecycle</h2>
 
-<p>A page can react to four moments: <code>OnLoad</code> and <code>AfterLoad</code> as it becomes the
-current page, <code>OnClose</code> as the wizard is about to exit from it, and <code>OnClick</code> on
-any button that isn't Cancel, Back or Next. Each hook is a small map built by
+<p>A page can react to five moments: <code>OnLoad</code> and <code>AfterLoad</code> as it becomes the
+current page, <code>OnLeave</code> when the wizard move from one page to another, <code>OnClose</code> as the wizard is about to exit from it, and <code>OnClick</code> on any button that isn't Cancel, Back or Next. Each hook is a small map built by
 <code>_SetEventHandler()</code>, pairing a function reference with an optional list of arguments from
 <code>_HandlerArgs()</code>:</p>
 

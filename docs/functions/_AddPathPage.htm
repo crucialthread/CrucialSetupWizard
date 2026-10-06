@@ -29,7 +29,7 @@ _AddPathPage(ByRef $mWizard, Const ByRef $mCfg, $sPath, $hUpdateSrcFunc, [$sPath
 <tr><td>$mWizard</td><td>The wizard map. Passed by reference; <code>iPathPageId</code> is set on it.</td></tr>
 <tr><td>$mCfg</td><td>The installer config map.</td></tr>
 <tr><td>$sPath</td><td>The initial path shown in the folder input.</td></tr>
-<tr><td>$hUpdateSrcFunc</td><td>Called with the input control ID after the user picks a folder via Browse. Pass <code>Default</code> for no callback.</td></tr>
+<tr><td>$hUpdateSrcFunc</td><td>Called with the input control ID after the user picks a folder via Browse, or when it leaves the path page to another one. Pass <code>Default</code> for no callback.</td></tr>
 <tr><td>$sPathLabel</td><td>[optional] The label text above the folder input. Default is "Install folder:".</td></tr>
 <tr><td>$sPathPageInfo</td><td>[optional] Descriptive text shown at the top of the page.</td></tr>
 <tr><td>$sPathSubHeading</td><td>[optional] The header subtitle shown when this page is active.</td></tr>

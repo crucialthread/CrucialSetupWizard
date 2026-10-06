@@ -10,7 +10,7 @@
 
 ;#INDEX# ========================================================================================================================
 ; Title .........: Crucial Setup Wizard - CrucialSetupWizard.au3
-; Version .......: 1.2.0
+; Version .......: 1.3.0
 ; AutoIt Version : 3.3.18.0
 ; Language ......: English
 ; Author ........: Crucial Thread
@@ -145,6 +145,7 @@
 ; __PageLoad
 ; __ClosePage
 ; __SetPage
+; __LeavePage
 ;
 ;[PAGE NAVIGATION]
 ; __NextPage
@@ -258,6 +259,7 @@ Global Const $EVENT_FINISH_PROCESS   = $eOnFinish
 ; keys used in page maps to store event handlers
 Global Const $ONLOAD    = "OnLoad"
 Global Const $AFTERLOAD = "AfterLoad"
+Global Const $ONLEAVE   = "OnLeave"
 Global Const $ONCLOSE   = "OnClose"
 Global Const $ONCLICK   = "OnClick"
 
@@ -1108,6 +1110,13 @@ Func __SetPage($iPage, $idHeaderSub, ByRef $mPages, ByRef $mButtons)
 	__PageLoad(__GetPage($mPages, $iPage), $mButtons, $idHeaderSub, $iPagePosition)
 EndFunc
 
+; #INTERNAL_USE_ONLY# ===========================================================================================================
+; Fires the OnLeave event for the page at $iPage index, if one is registered.
+Func __LeavePage($iPage, ByRef $mPages)
+	If Not IsMap($mPages) Then Return
+	__OnObjEvent(__GetPage($mPages, $iPage), $OnLeave)
+EndFunc
+
 ;================================================================================================================================
 #EndRegion <<< [PAGE OPERATIONS]
 ;================================================================================================================================
@@ -1150,25 +1159,29 @@ EndFunc
 ; #INTERNAL_USE_ONLY# ===========================================================================================================
 ; Moves the wizard to the next or previous page and updates the display.
 ; If the current page event is $EVENT_CLOSE_PAGE, triggers OnClose and returns $EXIT_WIZARD_SIGNAL.
+; If the destination page is different than the current, triggers OnLeave event
 ; $mWizard    - the wizard map (iPage is updated in place)
 ; $iDirection - $ePageNext, $ePageBack, or $ePageStay
 Func __NavPage(ByRef $mWizard, $iDirection = $ePageStay)
 	If Not IsMap($mWizard) Then Return Null
 
-	Local $iPage = MapExists($mWizard, "iPage") ? $mWizard.iPage : 0
-	Local $iPagePosition = __GetPagePosition($iPage, __MaxPages($mWizard.mPages))
+	Local $iCurrentPage  = MapExists($mWizard, "iPage") ? $mWizard.iPage : 0
+	Local $iPagePosition = __GetPagePosition($iCurrentPage, __MaxPages($mWizard.mPages))
 
-	If Not __IsValidPagePosition($iPagePosition) Then Return $iPage
+	If Not __IsValidPagePosition($iPagePosition) Then Return $iCurrentPage
 
-	$iPage = __PageMove($iPage, $iPagePosition, $iDirection)
-	$mWizard.iPage = $iPage
+	$iDestPage = __PageMove($iCurrentPage, $iPagePosition, $iDirection)
+
+	If $iDestPage <> $iCurrentPage Then __LeavePage($iCurrentPage, $mWizard.mPages)
+
+	$mWizard.iPage = $iDestPage
 
 	If _GetInstallerEvent() = $EVENT_CLOSE_PAGE Then
 		__ClosePage($mWizard.iPage, $mWizard.mPages)
 		Return $EXIT_WIZARD_SIGNAL
 	Else
 		__SetPage($mWizard.iPage, $mWizard.mHeader.idSubheading, $mWizard.mPages, $mWizard.mButtons)
-		Return $iPage
+		Return $iDestPage
 	EndIf
 EndFunc
 
@@ -1483,6 +1496,7 @@ Func __SetPathPage($hGUI, ByRef $mPage, Const ByRef $mCfg, $sPath, $hUpdateSrcFu
 
 	$mPage.iStatus     = $eNormalPage
 	$mPage.sSubheading = $sSubHeading
+	$mPage.OnLeave = _SetEventHandler(__RunUpdateSrcFunc, _HandlerArgs($hUpdateSrcFunc, $idInputPath))
 EndFunc
 
 ; #INTERNAL_USE_ONLY# ===========================================================================================================
